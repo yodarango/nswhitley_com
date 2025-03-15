@@ -1,5 +1,8 @@
 {{ if not .post.ID }}
     <tr class="data-table-head">
+        {{ if dev}}
+            <td>ID</td>
+        {{end}}
         <td>Status</td>
         <td>Name</td>
         <td>Date</td>
@@ -7,33 +10,37 @@
     </tr>
 {{ else }}
     <tr {{ if odd .i }}class="odd"{{end}}>
+        {{ if dev}}
+            <td>{{.post.ID}}</td>
+        {{end}}
         <td>{{ .post.StatusDisplay }}</td>
         <td class="row-post-name" data-post-name="{{.post.Name}}"><a href="{{.post.ShowURL}}">{{ .post.Name }}</a></td>
         <td>{{ .post.NiceDate }}</td>
         <td>
-        <div class="d-flex justify-content-start gap-3 align-items-center">
-            <a class="d-flex justify-content-start gap-2 align-items-center text-primary" href="{{ .post.UpdateURL }}">
-                <span>Edit</span>
-                <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-            <a href="#" class="deletePost d-flex justify-content-start gap-2 align-items-center text-danger" data-url="{{ .DestroyURL }}">
-                <span>Delete</span>
-                <i class="fa-solid fa-trash"></i>
-            </a>
-        </div>
+            <div class="d-flex justify-content-start gap-3 align-items-center">
+                <a class="d-flex justify-content-start gap-2 align-items-center text-primary" href="{{ .post.UpdateURL }}">
+                    <span>Edit</span>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <button onclick="DeleteModalConfirmation('{{.post.ID}}')" class="bg-transparent m-0 text-capitalize deletePost d-flex justify-content-start gap-2 align-items-center text-danger">
+                    <span>Delete</span>
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+
+            <!-- Overlay scuro per lo sfondo -->
+            <div class="dialogOverlay" id="dialogOverlay-{{.post.ID}}"></div>
+
+            <!-- Finestra di dialogo per conferma -->
+            <dialog id="confirmDialog-{{.post.ID}}">
+                <form method="post"  action="{{.post.DestroyURL}}">
+                    <p>This action is destructive, are you sure you want to delete {{.post.Name}}?</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" id="confirmBtn" class="btn btn-danger">Delete</button>
+                    </div>
+                </form>
+            </dialog>
         </td>
     </tr>
-    <!-- Overlay scuro per lo sfondo -->
-    <div id="dialogOverlay"></div>
-
-    <!-- Finestra di dialogo per conferma -->
-    <dialog id="confirmDialog">
-        <form method="dialog">
-            <p>This action is destructive, are you sure?</p>
-            <div class="d-flex justify-content-center gap-2">
-                <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
-                <button type="submit" id="confirmBtn" class="btn btn-danger">Delete</button>
-            </div>
-        </form>
-    </dialog>
 {{ end }}

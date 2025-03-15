@@ -1,7 +1,6 @@
 /* JS for posts */
 
 document.addEventListener("DOMContentLoaded", () => {
-  DeleteModalConfirmation();
   RemoveWordPressImages();
   SearchPost();
 });
@@ -29,53 +28,23 @@ function RemoveWordPressImages() {
 }
 
 //  delete modal posts confirmation
-function DeleteModalConfirmation() {
-  const deleteButtons = document.querySelectorAll(".deletePost");
-  const confirmDialog = document.getElementById("confirmDialog");
-  const confirmBtn = document.getElementById("confirmBtn");
-  const cancelBtn = document.getElementById("cancelBtn");
-  const overlay = document.getElementById("dialogOverlay");
-  let currentDeleteUrl = ""; // Salva l'URL del post da eliminare
+function DeleteModalConfirmation(id) {
+  console.log(id);
+  const confirmDialog = document.getElementById(`confirmDialog-${id}`);
+  const overlay = document.getElementById(`dialogOverlay-${id}`);
+  const cancelBtn = confirmDialog.querySelector("#cancelBtn");
 
-  // Apri il dialogo al clic su "Delete"
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      currentDeleteUrl = this.dataset.url; // Ottiene l'URL dal data attribute
+  // Apri il modal
+  confirmDialog.style.display = "block";
+  overlay.style.display = "block";
 
-      confirmDialog.showModal();
-      overlay.style.display = "block"; // Mostra lo sfondo nero
-    });
-  });
-
-  // Chiudi il dialogo senza eliminare
+  // Chiudi il modal senza eliminare
   cancelBtn.addEventListener("click", function () {
-    confirmDialog.close();
+    confirmDialog.style.display = "none";
     overlay.style.display = "none"; // Nasconde lo sfondo nero
   });
-
-  // Conferma eliminazione
-  confirmBtn.addEventListener("click", function () {
-    fetch(currentDeleteUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRF-TOKEN": "{{ .csrfToken }}", // Aggiungi il token CSRF se necessario
-      },
-    })
-      .then((response) => {
-        confirmDialog.close();
-        overlay.style.display = "none"; // Nasconde lo sfondo nero
-        if (response.ok) {
-          alert("Post eliminato con successo!");
-          location.reload(); // Ricarica la pagina o rimuovi l'elemento dalla DOM
-        } else {
-          alert("Errore nell'eliminazione del post.");
-        }
-      })
-      .catch((error) => console.error("Errore:", error));
-  });
 }
+
 // search post functionality
 function SearchPost() {
   const searchInput = document.querySelector('input[name="filter"]');

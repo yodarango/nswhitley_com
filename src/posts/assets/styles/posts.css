@@ -22,7 +22,7 @@
 }
 
 /*  dialog  */
-#dialogOverlay {
+.dialogOverlay {
   display: none;
   position: fixed;
   top: 0;
