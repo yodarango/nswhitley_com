@@ -5,13 +5,13 @@ import (
 	"github.com/fragmenta/server/log"
 
 	// Resource Actions
-	"github.com/fragmenta/fragmenta-cms/src/images/actions"
+	imageactions "github.com/fragmenta/fragmenta-cms/src/images/actions"
 	"github.com/fragmenta/fragmenta-cms/src/lib/session"
-	"github.com/fragmenta/fragmenta-cms/src/pages/actions"
-	"github.com/fragmenta/fragmenta-cms/src/posts/actions"
-	"github.com/fragmenta/fragmenta-cms/src/redirects/actions"
-	"github.com/fragmenta/fragmenta-cms/src/tags/actions"
-	"github.com/fragmenta/fragmenta-cms/src/users/actions"
+	pageactions "github.com/fragmenta/fragmenta-cms/src/pages/actions"
+	postactions "github.com/fragmenta/fragmenta-cms/src/posts/actions"
+	redirectactions "github.com/fragmenta/fragmenta-cms/src/redirects/actions"
+	tagactions "github.com/fragmenta/fragmenta-cms/src/tags/actions"
+	useractions "github.com/fragmenta/fragmenta-cms/src/users/actions"
 )
 
 // SetupRoutes creates a new router and adds the routes for this app to it.
@@ -35,6 +35,7 @@ func SetupRoutes() *mux.Mux {
 	router.Add("/favicon.ico", fileHandler)
 	router.Add("/files/{path:.*}", fileHandler)
 	router.Add("/assets/{path:.*}", fileHandler)
+	router.Add("/uploads/{path:.*}", fileHandler)
 
 	// Resource Routes
 

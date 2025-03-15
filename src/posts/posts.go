@@ -3,6 +3,7 @@ package posts
 
 import (
 	"fmt"
+
 	"github.com/fragmenta/view/helpers"
 
 	"github.com/fragmenta/fragmenta-cms/src/lib/resource"
@@ -23,6 +24,9 @@ type Post struct {
 	Summary  string
 	Template string
 	Text     string
+	Thumbnail string
+
+
 }
 
 // ShowURL returns our canonical url for showing the post, including slug
@@ -47,3 +51,4 @@ func (p *Post) TemplateOptions() []helpers.Selectable {
 
 	return options
 }
+

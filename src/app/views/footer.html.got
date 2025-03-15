@@ -3,3 +3,4 @@
         <li><a href="/privacy">Privacy</a></li>
         <li><a href="https://fragmenta.eu">Fragmenta</a></li>
 </ul>
+{{ block "extra_footer" . }}{{ end }}

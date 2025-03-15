@@ -15,12 +15,12 @@ const (
 	// KeyName is the primary key value for this resource
 	KeyName = "id"
 	// Order defines the default sort order in sql for this resource
-	Order = "name asc, id desc"
+	Order = "created_at desc"
 )
 
 // AllowedParams returns an array of allowed param keys for Update and Create.
 func AllowedParams() []string {
-	return []string{"status", "author_id", "keywords", "name", "status", "summary", "template", "text"}
+	return []string{"status", "author_id", "keywords", "name", "status", "summary", "template", "text", "thumbnail", "nice_date"}
 }
 
 // NewWithColumns creates a new post instance and fills it with data from the database cols provided.
@@ -38,6 +38,9 @@ func NewWithColumns(cols map[string]interface{}) *Post {
 	post.Summary = resource.ValidateString(cols["summary"])
 	post.Template = resource.ValidateString(cols["template"])
 	post.Text = resource.ValidateString(cols["text"])
+	post.Thumbnail = resource.ValidateString(cols["thumbnail"])
+	post.Thumbnail = resource.ValidateString(cols["nice_date"])
+	post.GetNiceDate()
 
 	return post
 }

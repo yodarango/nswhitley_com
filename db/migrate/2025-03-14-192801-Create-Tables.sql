@@ -7,7 +7,7 @@ CREATE TABLE fragmenta_metadata (
     status int
 );
 
-ALTER TABLE fragmenta_metadata OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE fragmenta_metadata OWNER TO "app_server";
 
 CREATE TABLE users (
 id SERIAL NOT NULL,
@@ -25,7 +25,7 @@ password_hash text,
 password_reset_token text,
 password_reset_at timestamp
 );
-ALTER TABLE users OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE users OWNER TO "app_server";
 
 CREATE TABLE tags (
 id SERIAL NOT NULL,
@@ -39,7 +39,7 @@ sort integer,
 dotted_ids text,
 status integer
 );
-ALTER TABLE tags OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE tags OWNER TO "app_server";
 
 DROP TABLE IF EXISTS images;
 CREATE TABLE images (
@@ -52,7 +52,7 @@ path text,
 sort integer,
 name text
 );
-ALTER TABLE images OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE images OWNER TO "app_server";
 
 DROP TABLE IF EXISTS pages;
 CREATE TABLE pages (
@@ -68,7 +68,7 @@ keywords text,
 template text,
 text text
 );
-ALTER TABLE pages OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE pages OWNER TO "app_server";
 
 CREATE TABLE posts (
 id SERIAL NOT NULL,
@@ -82,7 +82,7 @@ author_id integer,
 name text,
 summary text
 );
-ALTER TABLE posts OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE posts OWNER TO "app_server";
 
 DROP TABLE IF EXISTS redirects;
 CREATE TABLE redirects (
@@ -92,5 +92,5 @@ updated_at timestamp,
 new_url text,
 old_url text
 );
-ALTER TABLE redirects OWNER TO "[[.fragmenta_db_user]]";
+ALTER TABLE redirects OWNER TO "app_server";
 

@@ -1,9 +1,9 @@
 <section class="padded">
-<h1>Posts</h1>
+<h1>Posts {{len .posts}}</h1>
 
 <div class="row">
 <form accept-charset="UTF-8" action="/posts" method="get" class="filter-form">
-      <a class="button" href="/posts/create">Add Posts</a>
+      <a class="button" href="/posts/create">Add Posts </a>
       <input type="search" name="filter" class="right" placeholder="Search..." value="{{ .filter }}">
 </form>
 </div>

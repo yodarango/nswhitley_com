@@ -25,6 +25,9 @@ type Base struct {
 
 	// KeyName is used for database queries as the primary key.
 	KeyName string
+
+	// human readible date
+	NiceDate string
 }
 
 // String returns a string representation of the resource
@@ -60,6 +63,15 @@ func (r *Base) SelectName() string {
 func (r *Base) SelectValue() string {
 	return fmt.Sprintf("%d", r.ID)
 }
+
+
+// Make date unmanReadable 
+func (r *Base ) GetNiceDate() string {
+	formattedDate := r.CreatedAt.Format("01/02/06")
+	r.NiceDate = formattedDate
+	return formattedDate
+}
+
 
 // Cacheable interface
 

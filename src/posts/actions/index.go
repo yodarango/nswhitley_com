@@ -35,13 +35,16 @@ func HandleIndex(w http.ResponseWriter, r *http.Request) error {
 	switch params.Get("order") {
 
 	case "1":
-		q.Order("created_at desc")
+		q.Order("created_at asc")
 
 	case "2":
-		q.Order("updated_at desc")
+		q.Order("name desc")
+
+	case "3":
+		q.Order("name desc")
 
 	default:
-		q.Order("id asc")
+		q.Order("created_at desc")
 	}
 
 	// Filter if requested

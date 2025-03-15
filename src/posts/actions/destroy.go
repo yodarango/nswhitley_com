@@ -1,6 +1,7 @@
 package postactions
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/fragmenta/auth/can"
@@ -14,6 +15,7 @@ import (
 // HandleDestroy responds to /posts/n/destroy by deleting the post.
 func HandleDestroy(w http.ResponseWriter, r *http.Request) error {
 
+		fmt.Println("----------------")
 	// Fetch the  params
 	params, err := mux.Params(r)
 	if err != nil {
