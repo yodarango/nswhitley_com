@@ -39,7 +39,7 @@ func NewWithColumns(cols map[string]interface{}) *Post {
 	post.Template = resource.ValidateString(cols["template"])
 	post.Text = resource.ValidateString(cols["text"])
 	post.Thumbnail = resource.ValidateString(cols["thumbnail"])
-	post.Thumbnail = resource.ValidateString(cols["nice_date"])
+	post.NiceDate = resource.ValidateString(cols["nice_date"])
 	post.GetNiceDate()
 
 	return post

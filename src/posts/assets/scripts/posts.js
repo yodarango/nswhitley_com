@@ -12,10 +12,13 @@ function RemoveWordPressImages() {
     .querySelector("#editor")
     ?.querySelectorAll("img");
 
+  if (!wpImages || !wpImagesInEditor) return;
+
   const wpImagesArray = Array.from(wpImages || []);
   const wpImagesInEditorArray = Array.from(wpImagesInEditor || []);
 
   wpImagesInEditorArray.forEach((img) => {
+    if (img.serc.startsWith("data:image/")) return;
     img.remove();
   });
 
@@ -29,7 +32,6 @@ function RemoveWordPressImages() {
 
 //  delete modal posts confirmation
 function DeleteModalConfirmation(id) {
-  console.log(id);
   const confirmDialog = document.getElementById(`confirmDialog-${id}`);
   const overlay = document.getElementById(`dialogOverlay-${id}`);
   const cancelBtn = confirmDialog.querySelector("#cancelBtn");
@@ -49,6 +51,8 @@ function DeleteModalConfirmation(id) {
 function SearchPost() {
   const searchInput = document.querySelector('input[name="filter"]');
   const rows = document.querySelectorAll(".row-post-name");
+
+  if (!searchInput) return;
 
   searchInput.addEventListener("input", function () {
     const searchTerm = searchInput.value.toLowerCase().trim();

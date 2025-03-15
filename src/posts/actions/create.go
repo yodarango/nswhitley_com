@@ -59,6 +59,7 @@ func HandleCreate(w http.ResponseWriter, r *http.Request) error {
 
 	// Setup context
 	params, err := mux.Params(r)
+	
 	if err != nil {
 		return server.InternalError(err)
 	}

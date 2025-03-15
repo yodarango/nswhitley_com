@@ -1,7 +1,9 @@
 <section class="admin-bar-actions">
 <a class="button small" href="/posts/{{.post.ID}}/update">Edit Post</a>
 </section>
-<img src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
-<section class="padded narrow">
-{{ sanitize .post.Text }}
-</section>
+{{if .posts.Thumbnail}}
+    <img src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />  
+{{end}}
+
+
+<section class="padded narrow">{{html .post.Text}}</div>

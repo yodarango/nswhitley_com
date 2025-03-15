@@ -1,6 +1,7 @@
 package postactions
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/fragmenta/auth/can"
@@ -80,6 +81,7 @@ func HandleUpdate(w http.ResponseWriter, r *http.Request) error {
 	// Validate the params, removing any we don't accept
 	postParams := post.ValidateParams(params.Map(), posts.AllowedParams())
 
+	fmt.Println(postParams)
 	err = post.Update(postParams)
 	if err != nil {
 		return server.InternalError(err)

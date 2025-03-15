@@ -22,42 +22,53 @@
           
         <div id="editor">{{html .post.Text}}</div>
 
+        <input type="hidden" name="text" id="quillContent">
     </section>
     
 </form>
 
 
 {{define "extra_footer"}}
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
-<script>
-    const toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],      
-    ['blockquote', 'code-block'],
-    ['link', 'image', 'video', 'formula'],
+    <script>
+        const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],      
+        ['blockquote', 'code-block'],
+        ['link', 'image', 'video', 'formula'],
 
-    [{ 'header': 1 }, { 'header': 2 }],             
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],     
-    [{ 'indent': '-1'}, { 'indent': '+1' }],          
-    [{ 'direction': 'rtl' }],                         
+        [{ 'header': 1 }, { 'header': 2 }],             
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+        [{ 'script': 'sub'}, { 'script': 'super' }],     
+        [{ 'indent': '-1'}, { 'indent': '+1' }],          
+        [{ 'direction': 'rtl' }],                         
 
-    [{ 'size': ['small', false, 'large', 'huge'] }],  
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],  
+        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
-    [{ 'color': [] }, { 'background': [] }],         
-    [{ 'font': [] }],
-    [{ 'align': [] }],
+        [{ 'color': [] }, { 'background': [] }],         
+        [{ 'font': [] }],
+        [{ 'align': [] }],
 
-    ['clean']                                       
-    ];
+        ['clean']                                       
+        ];
 
-    const quill = new Quill('#editor', {
-    modules: {
-        toolbar: toolbarOptions
-    },
-    theme: 'snow'
-    });
-</script>
+        const quill = new Quill('#editor', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+        });
+
+        document.querySelector('.posts-form').addEventListener('submit', function(e) {
+            const editorContent = document.querySelector("#editor .ql-editor");
+            const editorContentText = `${editorContent.innerHTML}`
+
+            console.log(editorContentText)
+
+            document.getElementById('quillContent').value = editorContentText;
+        });
+    </script>
+
 
 {{end}}
