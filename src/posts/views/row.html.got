@@ -8,7 +8,7 @@
 {{ else }}
     <tr {{ if odd .i }}class="odd"{{end}}>
         <td>{{ .post.StatusDisplay }}</td>
-        <td><a href="{{.post.ShowURL}}">{{ .post.Name }}</a></td>
+        <td class="row-post-name" data-post-name="{{.post.Name}}"><a href="{{.post.ShowURL}}">{{ .post.Name }}</a></td>
         <td>{{ .post.NiceDate }}</td>
         <td>
         <div class="d-flex justify-content-start gap-3 align-items-center">

@@ -1,7 +1,13 @@
 /* JS for posts */
 
+document.addEventListener("DOMContentLoaded", () => {
+  DeleteModalConfirmation();
+  RemoveWordPressImages();
+  SearchPost();
+});
+
 // disable all old wordpress images in content
-window.onload = function () {
+function RemoveWordPressImages() {
   const wpImages = document.body.querySelectorAll("img");
   const wpImagesInEditor = document.body
     .querySelector("#editor")
@@ -20,10 +26,10 @@ window.onload = function () {
       img.remove();
     }
   });
-};
+}
 
 //  delete modal posts confirmation
-document.addEventListener("DOMContentLoaded", function () {
+function DeleteModalConfirmation() {
   const deleteButtons = document.querySelectorAll(".deletePost");
   const confirmDialog = document.getElementById("confirmDialog");
   const confirmBtn = document.getElementById("confirmBtn");
@@ -69,4 +75,24 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => console.error("Errore:", error));
   });
-});
+}
+// search post functionality
+function SearchPost() {
+  const searchInput = document.querySelector('input[name="filter"]');
+  const rows = document.querySelectorAll(".row-post-name");
+
+  searchInput.addEventListener("input", function () {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+
+    rows.forEach((row) => {
+      const postName = row.dataset.postName.toLowerCase().trim();
+
+      // Mostra solo le righe che corrispondono alla ricerca
+      if (postName.includes(searchTerm)) {
+        row.parentElement.style.display = ""; // Mostra la riga
+      } else {
+        row.parentElement.style.display = "none"; // Nasconde la riga
+      }
+    });
+  });
+}
