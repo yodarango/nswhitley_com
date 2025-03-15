@@ -8,15 +8,9 @@
 </form>
 </div>
 
-<div class="row">
-<table class="data-table">
-    {{ $0 := . }}
-    {{ template "images/views/row.html.got" empty }}
-    {{ range $i,$m := .images }}
-       {{ set $0 "i" $i }}
-       {{ set $0 "image" $m }}
-       {{ template "images/views/row.html.got" $0 }}
-    {{ end }}
-</table>
-</div>
+<!-- Fragmenta non e chaiara su a cosa sirvono queste actions, quindi ho createo la mia propria -->
+
+{{ range $i,$m := .images }}
+    <img src="/uploads/{{.Path}}" />
+{{end}}
 </section>

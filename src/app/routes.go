@@ -5,6 +5,7 @@ import (
 	"github.com/fragmenta/server/log"
 
 	// Resource Actions
+
 	imageactions "github.com/fragmenta/fragmenta-cms/src/images/actions"
 	"github.com/fragmenta/fragmenta-cms/src/lib/session"
 	pageactions "github.com/fragmenta/fragmenta-cms/src/pages/actions"
@@ -57,13 +58,16 @@ func SetupRoutes() *mux.Mux {
 	router.Get("/fragmenta/setup", pageactions.HandleSetupShow)
 	router.Post("/fragmenta/setup", pageactions.HandleSetup)
 
+	// il codice non e chiaro sul proposito di queste, quindi non mi servono. Ho construtto i miei invece
+	router.Get("/api/images", imageactions.HandleIndexApi)
 	router.Get("/images", imageactions.HandleIndex)
-	router.Get("/images/create", imageactions.HandleCreateShow)
-	router.Post("/images/create", imageactions.HandleCreate)
-	router.Get("/images/{id:[0-9]+}/update", imageactions.HandleUpdateShow)
-	router.Post("/images/{id:[0-9]+}/update", imageactions.HandleUpdate)
-	router.Post("/images/{id:[0-9]+}/destroy", imageactions.HandleDestroy)
-	router.Get("/images/{id:[0-9]+}", imageactions.HandleShow)
+	// router.Get("/images", imageactions.HandleIndex)
+	// router.Get("/images/create", imageactions.HandleCreateShow)
+	// router.Post("/images/create", imageactions.HandleCreate)
+	// router.Get("/images/{id:[0-9]+}/update", imageactions.HandleUpdateShow)
+	// router.Post("/images/{id:[0-9]+}/update", imageactions.HandleUpdate)
+	// router.Post("/images/{id:[0-9]+}/destroy", imageactions.HandleDestroy)
+	// router.Get("/images/{id:[0-9]+}", imageactions.HandleShow)
 
 	router.Get("/posts", postactions.HandleIndex)
 	router.Get("/posts/create", postactions.HandleCreateShow)

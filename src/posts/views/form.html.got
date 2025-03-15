@@ -14,17 +14,41 @@
      {{ selectarray "Template" "template" .post.Template .post.TemplateOptions }} 
     </section>
 
+    <section>
+        <div id="dialogOverlay" class="dialogOverlay justify-content-center align-items-center">
+            <dialog id="imageDialog">
+                <div class="d-flex align-items-center justify-content-between mb-3 gap-2">
+                    <h4>Select an Image</h4>
+                    <button class="imageDialog-closeBtn bg-transparent m-0 p-0 fs-2 text-body" onclick="closeImagePicker()">
+                        <i class="fa fa-close"></i></button>
+                    </button>
+                </div>
+                <div class="gallery"></div>
+            </dialog>
+        </div>
+
+        <input type="hidden" name="thumbnail" id="thumbnailInput">
+    </section>
+
     <section class="wide-fields">
           {{ field "Name" "name" .post.Name }}
           {{ field "Summary" "summary" .post.Summary }}
           {{ field "Keywords" "keywords" .post.Keywords }}
-          <img src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+          <div>
+          {{ if .post.Thumbnail}}
+            <img id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+            {{else}}
+            <div class="image-placeholder">
+                <button type="button" class="button small" onclick="openImagePicker()">Select a Thumbnail</button>
+             </div>
+            {{end}}
+          </div>
+         
           
         <div id="editor">{{html .post.Text}}</div>
 
         <input type="hidden" name="text" id="quillContent">
     </section>
-    
 </form>
 
 
@@ -61,6 +85,7 @@
         });
 
         document.querySelector('.posts-form').addEventListener('submit', function(e) {
+
             const editorContent = document.querySelector("#editor .ql-editor");
             const editorContentText = `${editorContent.innerHTML}`
 
