@@ -21,34 +21,8 @@
   }
 }
 
-/*  dialog  */
-.dialogOverlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Stile per il dialogo */
-dialog {
-  border: none;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 500px;
-  height: 90vh;
-  overflow: hidden;
-  text-align: center;
-}
-
 #selectedThumbnail {
+  cursor: pointer;
   object-position: center;
   object-fit: contain;
   max-height: 500px;
@@ -60,7 +34,7 @@ dialog {
   max-height: 250px;
 }
 
-#imageDialog {
+#image-dialog {
   max-width: 1000px;
 
   .gallery {

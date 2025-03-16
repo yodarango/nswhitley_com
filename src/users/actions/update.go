@@ -64,7 +64,8 @@ func HandleUpdate(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Authorise update user
-	err = can.Update(user, user)
+	currentUser := session.CurrentUser(w, r)
+	err = can.Update(user, currentUser)
 	if err != nil {
 		return server.NotAuthorizedError(err)
 	}

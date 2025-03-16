@@ -34,23 +34,6 @@ function RemoveWordPressImages() {
   });
 }
 
-//  delete modal posts confirmation
-function DeleteModalConfirmation(id) {
-  const confirmDialog = document.getElementById(`confirmDialog-${id}`);
-  const overlay = document.getElementById(`dialogOverlay-${id}`);
-  const cancelBtn = confirmDialog.querySelector("#cancelBtn");
-
-  // Apri il modal
-  confirmDialog.style.display = "flex";
-  overlay.style.display = "flex";
-
-  // Chiudi il modal senza eliminare
-  cancelBtn.addEventListener("click", function () {
-    confirmDialog.style.display = "none";
-    overlay.style.display = "none"; // Nasconde lo sfondo nero
-  });
-}
-
 // search post functionality
 function SearchPost() {
   const searchInput = document.querySelector('input[name="filter"]');

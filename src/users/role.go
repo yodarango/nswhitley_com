@@ -38,6 +38,17 @@ func (u *User) RoleDisplay() string {
 	return ""
 }
 
+func (u *User) GetNiceRole() {
+	switch u.Role {
+	case 10:
+		u.NiceRole =  "Editor"
+	case 20:
+		u.NiceRole = "Reader"
+	case 100:
+		u.NiceRole = "Admin"
+	}
+}
+
 // Anon returns true if this user is not a logged in user.
 func (u *User) Anon() bool {
 	return u.Role == Anon || u.ID == 0

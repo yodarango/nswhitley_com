@@ -20,7 +20,7 @@ const (
 
 // AllowedParams returns an array of allowed param keys for Update and Create.
 func AllowedParams() []string {
-	return []string{"name", "summary", "email", "status", "role", "password_hash", "text", "title", "image_id"}
+	return []string{"name", "summary", "email", "status", "role", "password_hash", "text", "title", "image_id", "nice_role"}
 }
 
 // NewWithColumns creates a new user instance and fills it with data from the database cols provided.
@@ -43,6 +43,8 @@ func NewWithColumns(cols map[string]interface{}) *User {
 	user.PasswordHash = resource.ValidateString(cols["password_hash"])
 	user.PasswordResetToken = resource.ValidateString(cols["password_reset_token"])
 	user.PasswordResetAt = resource.ValidateTime(cols["password_reset_at"])
+	user.NiceRole = resource.ValidateString(cols["nice_role"])
+	user.GetNiceRole()
 
 	return user
 }

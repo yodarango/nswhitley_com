@@ -1,13 +1,40 @@
 {{ if not .user.ID }}
     <tr class="data-table-head">
         <td>Status</td>
+        <td>Role</td>
         <td>Name</td>
-        <td>Updated</td>
+        <td>Actions</td>
     </tr>
 {{ else }}
     <tr {{ if odd .i }}class="odd"{{end}}>
         <td>{{ .user.StatusDisplay }}</td>
+        <td>{{ .user.NiceRole }}</td>
         <td><a href="{{ .user.UpdateURL }}">{{ .user.Name }}</a></td>
-        <td>{{ time .user.UpdatedAt }}</td>
+               <td>
+            <div class="d-flex justify-content-start gap-3 align-items-center">
+                <a class="d-flex justify-content-start gap-2 align-items-center text-primary" href="{{ .user.UpdateURL }}">
+                    <span>Edit</span>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <button onclick="DeleteModalConfirmation('{{.user.ID}}')" class="bg-transparent m-0 text-capitalize deletePost d-flex justify-content-start gap-2 align-items-center text-danger">
+                    <span>Delete</span>
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+
+            <!-- Overlay scuro per lo sfondo -->
+            <div class="delete-confirm-dialog-overlay" id="delete-confirm-dialog-overlay-{{.user.ID}}">
+                <!-- Finestra di dialogo per conferma -->
+                <dialog class="delete-post-confirm-dialog" id="delete-confirm-dialog-{{.user.ID}}">
+                    <form method="post"  action="{{.user.DestroyURL}}">
+                        <p class="mb-4">This action is destructive, are you sure you want to delete {{.user.Name}}?</p>
+                        <div class="d-flex justify-content-center gap-2">
+                            <button type="button" id="delete-confirm-dialog-cancel-btn" class="btn btn-secondary my-0">Cancel</button>
+                            <button type="submit" id="confirmBtn" class="btn btn-danger my-0">Delete</button>
+                        </div>
+                    </form>
+                </dialog>
+            </div>
+        </td>
     </tr>
 {{ end }}

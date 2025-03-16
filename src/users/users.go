@@ -31,4 +31,6 @@ type User struct {
 	Summary string
 	Text    string
 	ImageID int64
+
+	NiceRole string
 }

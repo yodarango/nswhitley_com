@@ -15,15 +15,15 @@
     </section>
 
     <section>
-        <div id="dialogOverlay" class="dialogOverlay justify-content-center align-items-center">
-            <dialog id="imageDialog">
+        <div id="delete-confirm-dialog-overlay" class="dialog-overlay delete-confirm-dialog-overlay justify-content-center align-items-center">
+            <dialog id="image-dialog">
                 <div class="d-flex align-items-center justify-content-between mb-3 gap-2">
                     <h4>Select an Image</h4>
                     <button class="imageDialog-closeBtn bg-transparent m-0 p-0 fs-2 text-body" onclick="closeImagePicker()">
                         <i class="fa fa-close"></i></button>
                     </button>
                 </div>
-                 <input type="search" id="imageSearch" class="form-control" placeholder="Search images..." oninput="filterImages()">
+                 <input type="search" id="imageSearch" class="form-control mb-4" placeholder="Search images..." oninput="filterImagesModal(this)">
                 <div class="gallery"></div>
             </dialog>
         </div>
@@ -40,8 +40,8 @@
             <img id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
           {{else}}
             <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
-            <div class="image-placeholder">
-                <button type="button" class="button small" onclick="openImagePicker()">Select a Thumbnail</button>
+            <div class="image-placeholder" role="button" onclick="openImagePicker()">
+                <p type="button" class="bg-transparent" >Select a Thumbnail</p>
              </div>
             {{end}}
           </div>
@@ -107,14 +107,14 @@
             const dialog = document.getElementById("imageDialog");
 
             dialog.showModal();
-            document.getElementById("dialogOverlay").style.display = "flex";
+            document.getElementById("delete-confirm-dialog-overlay").style.display = "flex";
             dialog.scrollTop = 0;
             }
 
             // Funzione per chiudere il modal
             function closeImagePicker() {
             document.getElementById("imageDialog").close();
-            document.getElementById("dialogOverlay").style.display = "none";
+            document.getElementById("delete-confirm-dialog-overlay").style.display = "none";
             }
 
             // Funzione per caricare le immagini nel background
@@ -164,27 +164,24 @@
         }
 
         // cerca una imagine 
-        function filterImages() {
-            let searchQuery = document.getElementById("imageSearch").value.toLowerCase();
-            let images = document.querySelectorAll(".gallery img");
+        function filterImagesModal(e) {
+            const rows = Array.from(document.querySelectorAll(".gallery img"));
 
-            images.forEach((image) => {
-                let imageName = image
-                .getAttribute("data-name")
-                .replaceAll("-", "")
-                .replaceAll("-", "")
-                .toLowerCase();
-                if (
-                imageName.includes(
-                    searchQuery.replaceAll("-", "").replaceAll("-", "").replaceAll(" ", "")
-                )
-                ) {
-                image.style.display = "block"; // Mostra l'immagine
+            if (!e) return;
+
+            
+            const searchTerm = e.value.replace(/[-_ ]/g, "").toLowerCase();
+
+            rows.forEach((row) => {
+                const postName = row.alt.toLowerCase().replace(/[-_ ]/g, "")
+
+                if (postName.includes(searchTerm)) {
+                    row.style.display = ""; // Mostra la riga
                 } else {
-                image.style.display = "none"; // Nasconde l'immagine
+                    row.style.display = "none"; // Nasconde la riga
                 }
             });
-            }
+        }
     </script>
 
 {{end}}

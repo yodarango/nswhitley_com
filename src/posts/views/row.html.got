@@ -29,13 +29,13 @@
             </div>
 
             <!-- Overlay scuro per lo sfondo -->
-            <div class="dialogOverlay" id="dialogOverlay-{{.post.ID}}">
+            <div class="delete-confirm-dialog-overlay" id="delete-confirm-dialog-overlay-{{.post.ID}}">
                 <!-- Finestra di dialogo per conferma -->
-                <dialog class="delete-post-confirm-dialog" id="confirmDialog-{{.post.ID}}">
+                <dialog class="delete-post-confirm-dialog" id="delete-confirm-dialog-{{.post.ID}}">
                     <form method="post"  action="{{.post.DestroyURL}}">
                         <p class="mb-4">This action is destructive, are you sure you want to delete {{.post.Name}}?</p>
                         <div class="d-flex justify-content-center gap-2">
-                            <button type="button" id="cancelBtn" class="btn btn-secondary my-0">Cancel</button>
+                            <button type="button" id="delete-confirm-dialog-cancel-btn" class="btn btn-secondary my-0">Cancel</button>
                             <button type="submit" id="confirmBtn" class="btn btn-danger my-0">Delete</button>
                         </div>
                     </form>
