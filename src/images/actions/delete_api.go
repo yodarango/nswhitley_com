@@ -33,6 +33,7 @@ func HandleDeleteApi(w http.ResponseWriter, r *http.Request) error {
 		return server.InternalError(err)
 	}
 
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]bool{
 		"Success": true,
 	})

@@ -1,12 +1,26 @@
 <section class="container mt-4">
-    <h1 class="mb-4">Images</h1>
+    <h1 id="images-header-label" class="mb-4">Images {{len .images}}</h1>
 
-    <div class="row mb-3">
-        <div class="d-flex w-100">
-            <a class="btn btn-primary me-2" href="/images/create">Add Images</a>
-            <input type="search" id="imageSearch-images-page" class="form-control" placeholder="Search images..." oninput="filterImagesPage(this)">
+
+    <section class="d-flex align-items-center justify-content-start gap-3">
+        <div class="w-100">
+            <div class="d-flex w-100">
+                <input type="search" id="imageSearch-images-page" class="form-control" placeholder="Search images..." oninput="filterImagesPage(this)">
+            </div>
         </div>
-    </div>
+
+        <!-- Form per l'upload -->
+        <div class="flex-shrink-0">
+            <form id="uploadForm" class="d-flex p-0">
+                <input type="file" id="imageUpload" class="d-none me-2" >
+                <button type="submit" class="btn btn-primary d-flex align-items-center justify-content-center gap-2 m-0">
+                    <i class="fa fa-plus"></i>
+                    <span>Upload new image</span>
+                </button>
+            </form>
+        </div>
+    </section>
+    <div class="alert alert-info">Try giving your images a descriptive name when uploading them in order to facilitate the search</div>
 
     <div class="row" id="imagesContainer">
         <!-- Le immagini verranno aggiunte dinamicamente -->
@@ -19,17 +33,16 @@
 </section>
 
 <script>
-let allImages = {{ .images }}; // Array di immagini ricevuto da Go
-let imagesPerPage = 50; // Numero di immagini da caricare alla volta
-let currentIndex = 0; // Indice della prossima immagine da caricare
-let filteredImages = allImages; // Lista attiva delle immagini
+let allImages = {{ .images }}; 
+let imagesPerPage = 50;
+let currentIndex = 0; 
+let filteredImages = allImages; 
 
-// Funzione per caricare immagini basata su `filteredImages`
 function loadMoreImages(reset = false) {
     let imagesContainer = document.getElementById("imagesContainer");
 
     if (reset) {
-        imagesContainer.innerHTML = ""; // Svuota il contenitore se la ricerca è attiva
+        imagesContainer.innerHTML = "";
         currentIndex = 0;
     }
 
@@ -46,20 +59,18 @@ function loadMoreImages(reset = false) {
             <div class="card">
                 <img src="/uploads/${image.Path}" class="card-img-top" alt="${image.Name}">
                 <div class="card-body text-center">
-                    <button type="button" class="btn btn-danger w-100" onclick="deleteImage(this, '${image.Path}')">Taglia</button>
+                    <button type="button" class="btn btn-danger w-100" onclick="deleteImage(this, '${image.Path}')">Delete</button>
                 </div>
             </div>
         `;
         imagesContainer.appendChild(imageCard);
     });
 
-    currentIndex += imagesPerPage; // Aggiorna l'indice per il prossimo caricamento
+    currentIndex += imagesPerPage; 
 
-    // Nasconde il pulsante se non ci sono più immagini da caricare
     document.getElementById("loadMoreBtn").style.display = currentIndex >= filteredImages.length ? "none" : "block";
 }
 
-// Funzione per filtrare le immagini nella lista `allImages`
 function filterImagesPage(e) {
 
     let searchQuery = e.value.toLowerCase();
@@ -74,8 +85,6 @@ function filterImagesPage(e) {
     loadMoreImages(true);
 }
 
-
-// Funzione per eliminare un'immagine
 async function deleteImage(button, imagePath) {
     if (!confirm("Sei sicuro di voler eliminare questa immagine?")) return;
 
@@ -101,6 +110,49 @@ async function deleteImage(button, imagePath) {
         alert("Errore nel server, riprova più tardi.");
     }
 }
+
+document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    let fileInput = document.getElementById("imageUpload");
+    let file = fileInput.files[0];
+
+    if (!file) {
+        alert("Seleziona un'immagine prima di caricare.");
+        return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) { // 2MB
+        alert("L'immagine non può essere più grande di 2MB.");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("image", file);
+
+    try {
+        let response = await fetch("/api/images/create", {
+            method: "POST",
+            body: formData
+        });
+
+        let result = await response.json();
+
+        if (result.Success) {
+            let newImage = { Name: result.Name, Path: result.Path };
+            allImages.unshift(newImage);
+            filteredImages = allImages;
+            loadMoreImages(true);
+            fileInput.value = "";
+        } else {
+            alert("Errore nel caricamento dell'immagine.");
+        }
+    } catch (error) {
+        console.error("Errore:", error);
+        alert("Errore nel server, riprova più tardi.");
+    }
+});
+
 
 // Carica le prime 50 immagini al caricamento della pagina
 document.addEventListener("DOMContentLoaded", () => loadMoreImages(true));

@@ -62,7 +62,7 @@ func SetupRoutes() *mux.Mux {
 	router.Get("/api/images", imageactions.HandleIndexApi)
 	router.Get("/images", imageactions.HandleIndex)
 	router.Post("/api/images/delete", imageactions.HandleDeleteApi)
-	// router.Get("/images", imageactions.HandleIndex)
+	router.Post("/api/images/create", imageactions.HandleCreateApi)
 	// router.Get("/images/create", imageactions.HandleCreateShow)
 	// router.Post("/images/create", imageactions.HandleCreate)
 	// router.Get("/images/{id:[0-9]+}/update", imageactions.HandleUpdateShow)
