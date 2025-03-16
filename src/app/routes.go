@@ -61,6 +61,7 @@ func SetupRoutes() *mux.Mux {
 	// il codice non e chiaro sul proposito di queste, quindi non mi servono. Ho construtto i miei invece
 	router.Get("/api/images", imageactions.HandleIndexApi)
 	router.Get("/images", imageactions.HandleIndex)
+	router.Post("/api/images/delete", imageactions.HandleDeleteApi)
 	// router.Get("/images", imageactions.HandleIndex)
 	// router.Get("/images/create", imageactions.HandleCreateShow)
 	// router.Post("/images/create", imageactions.HandleCreate)

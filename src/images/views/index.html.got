@@ -1,16 +1,107 @@
-<section>
-<h1>Images</h1>
+<section class="container mt-4">
+    <h1 class="mb-4">Images</h1>
 
-<div class="row">
-<form accept-charset="UTF-8" action="/images" method="get" class="filter-form">
-      <a class="button" href="/images/create">Add Images</a>
-      <input type="search" name="filter" class="right" placeholder="Search..." value="{{ .filter }}">
-</form>
-</div>
+    <div class="row mb-3">
+        <div class="d-flex w-100">
+            <a class="btn btn-primary me-2" href="/images/create">Add Images</a>
+            <input type="search" id="imageSearch-images-page" class="form-control" placeholder="Search images..." oninput="filterImagesPage(this)">
+        </div>
+    </div>
 
-<!-- Fragmenta non e chaiara su a cosa sirvono queste actions, quindi ho createo la mia propria -->
+    <div class="row" id="imagesContainer">
+        <!-- Le immagini verranno aggiunte dinamicamente -->
+    </div>
 
-{{ range $i,$m := .images }}
-    <img src="/uploads/{{.Path}}" />
-{{end}}
+    <!-- Pulsante per caricare più immagini -->
+    <div class="text-center mt-3">
+        <button class="btn btn-secondary" id="loadMoreBtn" onclick="loadMoreImages()">Carica più immagini</button>
+    </div>
 </section>
+
+<script>
+let allImages = {{ .images }}; // Array di immagini ricevuto da Go
+let imagesPerPage = 50; // Numero di immagini da caricare alla volta
+let currentIndex = 0; // Indice della prossima immagine da caricare
+let filteredImages = allImages; // Lista attiva delle immagini
+
+// Funzione per caricare immagini basata su `filteredImages`
+function loadMoreImages(reset = false) {
+    let imagesContainer = document.getElementById("imagesContainer");
+
+    if (reset) {
+        imagesContainer.innerHTML = ""; // Svuota il contenitore se la ricerca è attiva
+        currentIndex = 0;
+    }
+
+    let endIndex = Math.min(currentIndex + imagesPerPage, filteredImages.length);
+    let imagesToLoad = filteredImages.slice(currentIndex, endIndex);
+
+    imagesToLoad.forEach((image) => {
+        let imageCard = document.createElement("div");
+
+        if (!imageCard) return 
+        imageCard.className = "col-md-4 mb-4 image-card";
+        imageCard.setAttribute("data-name", image.Name);
+        imageCard.innerHTML = `
+            <div class="card">
+                <img src="/uploads/${image.Path}" class="card-img-top" alt="${image.Name}">
+                <div class="card-body text-center">
+                    <button type="button" class="btn btn-danger w-100" onclick="deleteImage(this, '${image.Path}')">Taglia</button>
+                </div>
+            </div>
+        `;
+        imagesContainer.appendChild(imageCard);
+    });
+
+    currentIndex += imagesPerPage; // Aggiorna l'indice per il prossimo caricamento
+
+    // Nasconde il pulsante se non ci sono più immagini da caricare
+    document.getElementById("loadMoreBtn").style.display = currentIndex >= filteredImages.length ? "none" : "block";
+}
+
+// Funzione per filtrare le immagini nella lista `allImages`
+function filterImagesPage(e) {
+
+    let searchQuery = e.value.toLowerCase();
+    
+    searchQuery = searchQuery.replace(/[-_ ]/g, "");
+
+    filteredImages = allImages.filter(image => {
+        let normalizedImageName = image.Name.toLowerCase().replace(/[-_ ]/g, ""); 
+        return normalizedImageName.includes(searchQuery);
+    });
+
+    loadMoreImages(true);
+}
+
+
+// Funzione per eliminare un'immagine
+async function deleteImage(button, imagePath) {
+    if (!confirm("Sei sicuro di voler eliminare questa immagine?")) return;
+
+    try {
+        const response = await fetch("/api/images/delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ path: imagePath })
+        });
+
+        const result = await response.json();
+
+        if (result.Success) {
+            // Rimuove solo l'immagine eliminata dall'array e aggiorna la vista
+            allImages = allImages.filter(img => img.Path !== imagePath);
+            filteredImages = filteredImages.filter(img => img.Path !== imagePath);
+            loadMoreImages(true);
+        } else {
+            alert("Errore nella cancellazione dell'immagine.");
+        }
+    } catch (error) {
+        console.error("Errore:", error);
+        alert("Errore nel server, riprova più tardi.");
+    }
+}
+
+// Carica le prime 50 immagini al caricamento della pagina
+document.addEventListener("DOMContentLoaded", () => loadMoreImages(true));
+</script>

@@ -23,6 +23,7 @@
                         <i class="fa fa-close"></i></button>
                     </button>
                 </div>
+                 <input type="search" id="imageSearch" class="form-control" placeholder="Search images..." oninput="filterImages()">
                 <div class="gallery"></div>
             </dialog>
         </div>
@@ -161,6 +162,29 @@
                 console.error("Errore nel caricamento delle immagini:", error);
             }
         }
+
+        // cerca una imagine 
+        function filterImages() {
+            let searchQuery = document.getElementById("imageSearch").value.toLowerCase();
+            let images = document.querySelectorAll(".gallery img");
+
+            images.forEach((image) => {
+                let imageName = image
+                .getAttribute("data-name")
+                .replaceAll("-", "")
+                .replaceAll("-", "")
+                .toLowerCase();
+                if (
+                imageName.includes(
+                    searchQuery.replaceAll("-", "").replaceAll("-", "").replaceAll(" ", "")
+                )
+                ) {
+                image.style.display = "block"; // Mostra l'immagine
+                } else {
+                image.style.display = "none"; // Nasconde l'immagine
+                }
+            });
+            }
     </script>
 
 {{end}}
