@@ -1,25 +1,8 @@
-![Fragmenta CMS](https://avatars3.githubusercontent.com/u/8027677?v=3&s=100)
+## TODO
 
-# Fragmenta CMS
+- Usare un solo "modal" in tutta la applicazione (/images usa una alert())
+- Legare `tags` a `posts`
+- Usare solo un editore (/pages/create usa il editore osoletto).
+- /pages/create/ debere essere modificata affinche solo aggiorni campi di tipo testo nella template da una nuova pagina
 
-Fragmenta CMS is a user-friendly Content Management System built with Go. For more information and a demo of the CMS in action, see the website at http://fragmenta.eu
-
-## Usage
-
-
-
-## Config 
-
-
-#### Session Name
-The *session_name* key is used to set the name used in cookies.
-
-#### Theme
-The *theme* key is used to set the theme. To use a theme, add a key with the name of your theme folder to the fragmenta.json file. Theme templates will then override any templates in the app at the same path. 
-
-
-## Requirements 
-
-Go 1.8 is now required, as some new features from this release and the 1.7 release are used. 
-
-## Version History
+!Thanks to [Fragmenta CMS](https://avatars3.githubusercontent.com/u/8027677?v=3&s=100)
