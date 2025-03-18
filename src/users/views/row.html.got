@@ -1,22 +1,22 @@
 {{ if not .user.ID }}
-    <tr class="data-table-head">
+    <tr class="tr-head">
         <td>Status</td>
         <td>Role</td>
         <td>Name</td>
         <td>Actions</td>
     </tr>
 {{ else }}
-    <tr {{ if odd .i }}class="odd"{{end}}>
+    <tr class="{{ if odd .i }}td-odd-row{{ end }}">
         <td>{{ .user.StatusDisplay }}</td>
         <td>{{ .user.NiceRole }}</td>
         <td><a href="{{ .user.UpdateURL }}">{{ .user.Name }}</a></td>
                <td>
             <div class="d-flex justify-content-start gap-3 align-items-center">
-                <a class="d-flex justify-content-start gap-2 align-items-center text-primary" href="{{ .user.UpdateURL }}">
+                <a class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" href="{{ .user.UpdateURL }}">
                     <span>Edit</span>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
-                <button onclick="DeleteModalConfirmation('{{.user.ID}}')" class="bg-transparent m-0 text-capitalize deletePost d-flex justify-content-start gap-2 align-items-center text-danger">
+                <button onclick="DeleteModalConfirmation('{{.user.ID}}')" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
                     <span>Delete</span>
                     <i class="fa-solid fa-trash"></i>
                 </a>

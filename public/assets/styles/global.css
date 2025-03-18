@@ -30,6 +30,12 @@ input {
   border-radius: 0px !important;
 }
 
+a,
+a:active,
+a:visited {
+  color: var(--theta);
+}
+
 body {
   color: var(--theta);
 }
@@ -44,6 +50,7 @@ body {
 .btn-primary:focus {
   background-color: var(--bs-primary) !important;
   border-color: var(--bs-primary) !important;
+  color: var(--alpha) !important;
 }
 
 .btn-outline-primary,

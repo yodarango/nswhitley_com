@@ -1,15 +1,14 @@
 <section class="padded">
 <h1>Users</h1>
 
-<div class="row">
-<form accept-charset="UTF-8" action="/users" method="get" class="filter-form">
-      <a class="button" href="/users/create">Add User</a>
-      <input type="search" name="filter" class="right" placeholder="Search..." value="{{ .filter }}">
-</form>
+ <div class="d-flex justify-content-between align-items-center mb-3">
+    <a class="btn btn-primary" href="/pages/create">
+        <i class="fa-solid fa-plus"></i> Add User
+    </a>
 </div>
 
-<div class="row">
-<table class="data-table">
+<div class="table-container">
+<table class="rwd-table">
     {{ $0 := . }}
     {{ template "users/views/row.html.got" empty }}
     {{ range $i,$m := .users }}

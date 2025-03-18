@@ -5,7 +5,6 @@
         <a class="btn btn-primary" href="/pages/create">
             <i class="fa-solid fa-plus"></i> Add Pages
         </a>
-        <input type="search" name="filter" class="form-control w-25" placeholder="Search..." value="{{ .filter }}">
     </div>
 
     <div class="table-container">
