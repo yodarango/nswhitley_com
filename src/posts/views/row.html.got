@@ -1,45 +1,54 @@
 {{ if not .post.ID }}
-    <tr class="data-table-head">
-        {{ if dev}}
-            <td>ID</td>
-        {{end}}
-        <td>Status</td>
-        <td>Name</td>
-        <td>Date</td>
-        <td>Actions</td>
-    </tr>
+    <thead class="table-light">
+        <tr>
+            {{ if dev }}
+                <th>ID</th>
+            {{ end }}
+            <th>Status</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th class="text-center">Actions</th>
+        </tr>
+    </thead>
 {{ else }}
-    <tr {{ if odd .i }}class="odd"{{end}}>
-        {{ if dev}}
-            <td>{{.post.ID}}</td>
-        {{end}}
-        <td>{{ .post.StatusDisplay }}</td>
-        <td class="row-post-name" data-post-name="{{.post.Name}}"><a href="{{.post.ShowURL}}">{{ .post.Name }}</a></td>
-        <td>{{ .post.NiceDate }}</td>
-        <td>
-            <div class="d-flex justify-content-start gap-3 align-items-center">
-                <a class="d-flex justify-content-start gap-2 align-items-center text-primary" href="{{ .post.UpdateURL }}">
-                    <span>Edit</span>
-                    <i class="fa-solid fa-pen-to-square"></i>
+    <tr class="{{ if odd .i }}table-secondary{{ end }}">
+        {{ if dev }}
+            <td data-label="ID">{{ .post.ID }}</td>
+        {{ end }}
+        <td data-label="Status"><span class="badge bg-info text-dark">{{ .post.StatusDisplay }}</span></td>
+        <td data-label="Name">
+            <a href="{{ .post.ShowURL }}" class="text-decoration-none text-dark">{{ .post.Name }}</a>
+        </td>
+        <td data-label="Date">{{ .post.NiceDate }}</td>
+        <td data-label="Actions" class="text-center">
+            <div class="d-flex justify-content-center gap-3">
+                <a class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" href="{{ .post.UpdateURL }}">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit
                 </a>
-                <button onclick="DeleteModalConfirmation('{{.post.ID}}')" class="bg-transparent m-0 text-capitalize deletePost d-flex justify-content-start gap-2 align-items-center text-danger">
-                    <span>Delete</span>
-                    <i class="fa-solid fa-trash"></i>
-                </a>
+                <button onclick="DeleteModalConfirmation('{{.post.ID}}')" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
             </div>
 
-            <!-- Overlay scuro per lo sfondo -->
-            <div class="delete-confirm-dialog-overlay" id="delete-confirm-dialog-overlay-{{.post.ID}}">
-                <!-- Finestra di dialogo per conferma -->
-                <dialog class="delete-post-confirm-dialog" id="delete-confirm-dialog-{{.post.ID}}">
-                    <form method="post"  action="{{.post.DestroyURL}}">
-                        <p class="mb-4">This action is destructive, are you sure you want to delete {{.post.Name}}?</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button type="button" id="delete-confirm-dialog-cancel-btn" class="btn btn-secondary my-0">Cancel</button>
-                            <button type="submit" id="confirmBtn" class="btn btn-danger my-0">Delete</button>
+            <!-- Modal Bootstrap -->
+            <div class="modal fade" id="delete-confirm-dialog-{{.post.ID}}" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm Deletion</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                    </form>
-                </dialog>
+                        <div class="modal-body">
+                            <p class="mb-4">This action is destructive, are you sure you want to delete <strong>{{.post.Name}}</strong>?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form method="post" action="{{.post.DestroyURL}}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </td>
     </tr>

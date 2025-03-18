@@ -1,22 +1,22 @@
-<section class="padded">
-<h1>Pages</h1>
+<section>
+    <h1 class="mb-4">Pages</h1>
 
-<div class="row">
-<form accept-charset="UTF-8" action="/pages" method="get" class="filter-form">
-      <a class="button" href="/pages/create">Add Pages</a>
-      <input type="search" name="filter" class="right" placeholder="Search..." value="{{ .filter }}">
-</form>
-</div>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a class="btn btn-primary" href="/pages/create">
+            <i class="fa-solid fa-plus"></i> Add Pages
+        </a>
+        <input type="search" name="filter" class="form-control w-25" placeholder="Search..." value="{{ .filter }}">
+    </div>
 
-<div class="row">
-<table class="data-table">
-    {{ $0 := . }}
-    {{ template "pages/views/row.html.got" empty }}
-    {{ range $i,$m := .pages }}
-       {{ set $0 "i" $i }}
-       {{ set $0 "page" $m }}
-       {{ template "pages/views/row.html.got" $0 }}
-    {{ end }}
-</table>
-</div>
+    <div class="table-container">
+        <table class="rwd-table">
+            {{ $0 := . }}
+            {{ template "pages/views/row.html.got" empty }}
+            {{ range $i, $m := .pages }}
+                {{ set $0 "i" $i }}
+                {{ set $0 "page" $m }}
+                {{ template "pages/views/row.html.got" $0 }}
+            {{ end }}
+        </table>
+    </div>
 </section>

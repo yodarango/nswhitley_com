@@ -18,7 +18,7 @@
         {{end}}
     </header>
 
-    <main class="main-content">
+    <main class="container main-content">
         {{ .content }}
     </main>
 

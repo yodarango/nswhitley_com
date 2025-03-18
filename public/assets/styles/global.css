@@ -1,3 +1,163 @@
+/* variables  */
+:root {
+  --alpha: #fefae0;
+  --beta: #e9e4c4;
+  --gamma: #cb997e;
+  --delta: #ddbea9;
+  --epsilon: #6b705c;
+  --zeta: #a5a58d;
+  --eta: #b7b7a4;
+  --theta: #30312c;
+
+  --success: #6bc881;
+  --warning: #f0bd75;
+  --danger: #f26d5b;
+  --info: #5bc0de;
+
+  /* Bootstraps */
+  --bs-primary: var(--epsilon);
+  --bs-danger: var(--danger);
+  --bs-success: var(--success);
+  --bs-info: var(--info);
+  --bs-warning: var(--warning);
+}
+
+/*  Resets */
+button,
+.btn,
+*,
+input {
+  border-radius: 0px !important;
+}
+
+body {
+  color: var(--theta);
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  background-color: transparent;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
+  background-color: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
+}
+
+.btn-outline-danger,
+.btn-outline-danger:hover,
+.btn-outline-danger:active,
+.btn-outline-danger:focus {
+  color: var(--bs-danger);
+  border-color: var(--bs-danger);
+  background-color: transparent;
+}
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active,
+.btn-success:focus {
+  background-color: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+}
+
+.btn-outline-success,
+.btn-outline-success:hover,
+.btn-outline-success:active,
+.btn-outline-success:focus {
+  color: var(--bs-success);
+  border-color: var(--bs-success);
+  background-color: transparent;
+}
+.text-success {
+  color: var(--success) !important;
+}
+
+.btn-info,
+.btn-info:hover,
+.btn-info:active,
+.btn-info:focus {
+  background-color: var(--bs-info) !important;
+  border-color: var(--bs-info) !important;
+}
+
+.btn-outline-info,
+.btn-outline-info:hover,
+.btn-outline-info:active,
+.btn-outline-info:focus {
+  color: var(--bs-info);
+  border-color: var(--bs-info);
+  background-color: transparent;
+}
+.text-info {
+  color: var(--info) !important;
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning:focus {
+  background-color: var(--bs-warning) !important;
+  border-color: var(--bs-warning) !important;
+}
+
+.btn-outline-warning,
+.btn-outline-warning:hover,
+.btn-outline-warning:active,
+.btn-outline-warning:focus {
+  color: var(--bs-warning);
+  border-color: var(--bs-warning);
+  background-color: transparent;
+}
+.text-warning {
+  color: var(--warning) !important;
+}
+
+.btn-dark,
+.btn-dark:hover,
+.btn-dark:active,
+.btn-dark:focus {
+  background-color: var(--theta) !important;
+  border-color: var(--theta) !important;
+}
+.btn-outline-dark,
+.btn-outline-dark:hover,
+.btn-outline-dark:active,
+.btn-outline-dark:focus {
+  color: var(--theta);
+  border-color: var(--theta);
+  background-color: transparent;
+}
+.text-dark {
+  color: var(--theta) !important;
+}
+
 /*  dialog  */
 .dialog-overlay {
   display: none;
@@ -40,8 +200,8 @@ dialog {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #23282d;
-    color: #eee;
+    background-color: var(--theta);
+    color: var(--alpha);
     padding: 24px 16px;
     overflow-y: auto;
   }
@@ -64,10 +224,11 @@ dialog {
     position: fixed;
     top: 0;
     right: -250px; /* Inizialmente nascosto */
-    background-color: #23282d;
-    color: #eee;
+    background-color: var(--theta);
+    color: var(--alpha);
     transition: right 0.3s;
     z-index: 1050;
+    padding: 24px 16px;
     overflow-y: auto;
   }
 
@@ -104,11 +265,6 @@ dialog {
   }
 }
 
-/* Stili comuni */
-.admin.dev {
-  background-color: #2c3e50;
-}
-
 .admin .main_list {
   list-style-type: none;
   padding: 0;
@@ -116,16 +272,16 @@ dialog {
 }
 
 .admin .main_list a {
+  cursor: pointer;
   display: block;
-  color: #eee;
+  color: var(--alpha);
   text-decoration: none;
   transition: background-color 0.2s;
   padding: 8px 16px;
 }
 
 .admin .main_list a:hover {
-  background-color: #0073aa;
-  color: #fff;
+  color: var(--beta);
 }
 
 .admin .main_list a i {
@@ -141,4 +297,101 @@ dialog {
   @media (min-width: 800px) {
     margin-left: calc(170px + 20px);
   }
+}
+
+/********************************
+*********** Admin menu **********
+*********************************/
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.tr-head {
+  background-color: var(--beta);
+}
+
+.tr-head th {
+  padding: 12px 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+table td {
+  padding: 12px 8px;
+}
+
+.td-odd-row {
+  background-color: var(--alpha);
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody,
+  table tr {
+    display: block;
+    width: 100%;
+  }
+
+  table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .td-odd-row {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+}
+
+/* badges  */
+.badge-status-Published,
+.badge-status-Draft,
+.badge-status-Suspended {
+  background-color: var(--success);
+  border-radius: 0px;
+  padding: 5px 10px;
+  color: white !important;
+}
+
+.badge-status-Draft {
+  background-color: var(--warning);
+}
+
+.badge-status-Suspended {
+  background-color: var(--danger);
 }
