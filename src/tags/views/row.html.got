@@ -1,11 +1,19 @@
 {{ if not .tag.ID }}
-    <tr class="data-table-head">
-        <td>Tag</td>
-        <td>Actions</td>
-    </tr>
+    <thead class="table-light">
+        <tr class="tr-head">
+            <td>Tag</td>
+            <td>Actions</td>
+        </tr>
+    </thead>
 {{ else }}
-    <tr {{ if odd .i }}class="odd"{{end}}>
+    <tr class="{{ if odd .i }}td-odd-row{{ end }}">
         <td><a href="{{.tag.ShowURL}}">{{ .tag.Name }}</a></td>
-        <td><a href="{{ .tag.UpdateURL }}">Edit</a></td>
+        <td>
+            <div class="d-flex justify-content-start gap-3">
+                <a class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" href="{{ .tag.UpdateURL }}">
+                    <i class="fa-solid fa-pen-to-square"></i> Edit
+                </a>
+            </div>
+        </td>
     </tr>
 {{ end }}

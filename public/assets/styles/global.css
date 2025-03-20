@@ -211,6 +211,7 @@ dialog {
     color: var(--alpha);
     padding: 24px 16px;
     overflow-y: auto;
+    z-index: 1050;
   }
 
   .content-area {
@@ -310,7 +311,6 @@ dialog {
 *********** Admin menu **********
 *********************************/
 .table-container {
-  max-height: 400px;
   overflow-y: auto;
   position: relative;
 }

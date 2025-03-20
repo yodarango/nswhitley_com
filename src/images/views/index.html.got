@@ -2,7 +2,7 @@
     <h1 id="images-header-label" class="mb-4">Images ({{len .images}})</h1>
 
 
-    <section class="d-flex align-items-center justify-content-start gap-3">
+    <section class="d-flex align-items-center justify-content-start gap-3 tw-mb-4">
         <div class="w-100">
             <div class="d-flex w-100">
                 <input type="search" id="imageSearch-images-page" class="form-control" placeholder="Search images..." oninput="filterImagesPage(this)">

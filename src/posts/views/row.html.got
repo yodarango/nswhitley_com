@@ -1,6 +1,6 @@
 {{ if not .post.ID }}
     <thead class="table-light">
-        <tr>
+        <tr class="tr-head">
             {{ if dev }}
                 <th>ID</th>
             {{ end }}
@@ -11,11 +11,11 @@
         </tr>
     </thead>
 {{ else }}
-    <tr class="{{ if odd .i }}table-secondary{{ end }}">
+    <tr class="{{ if odd .i }}td-odd-row{{ end }}">
         {{ if dev }}
             <td data-label="ID">{{ .post.ID }}</td>
         {{ end }}
-        <td data-label="Status"><span class="badge bg-info text-dark">{{ .post.StatusDisplay }}</span></td>
+        <td data-label="Status"><span class="badge-status-{{ .post.StatusDisplay }}">{{ .post.StatusDisplay }}</span></td>
         <td data-label="Name">
             <a href="{{ .post.ShowURL }}" class="text-decoration-none text-dark">{{ .post.Name }}</a>
         </td>
