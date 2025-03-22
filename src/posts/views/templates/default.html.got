@@ -1,6 +1,9 @@
-<section class="admin-bar-actions">
-<a class="button small" href="/posts/{{.post.ID}}/update">Edit Post</a>
-</section>
+{{ if .currentUser.Admin }}
+    <section class="admin-bar-actions">
+        <a class="button small" href="/posts/{{.post.ID}}/update">Edit Post</a>
+    </section>
+{{end}}
+
 {{if .post.Thumbnail}}
     <img src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />  
 {{end}}

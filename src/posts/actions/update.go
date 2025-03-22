@@ -88,5 +88,5 @@ func HandleUpdate(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	// Redirect to post
-	return server.Redirect(w, r, post.ShowURL())
+	return server.Redirect(w, r, post.IndexURL())
 }

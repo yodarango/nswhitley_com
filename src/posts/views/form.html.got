@@ -9,9 +9,9 @@
         <a class="button grey" href="javascript:history.back()">Cancel</a>
     </section>
     <section class="inline-fields">
-     {{ select "Status" "status" .post.Status .post.StatusOptions }}  
-     {{ selectarray "Author" "author_id" .post.AuthorID .authors }}  
-     {{ selectarray "Template" "template" .post.Template .post.TemplateOptions }} 
+        {{ select "Status" "status" .post.Status .post.StatusOptions }}  
+        {{ selectarray "Author" "author_id" .post.AuthorID .authors }}  
+        {{ selectarray "Template" "template" .post.Template .post.TemplateOptions }} 
     </section>
 
     <section>
@@ -36,13 +36,13 @@
           {{ field "Summary" "summary" .post.Summary }}
           {{ field "Keywords" "keywords" .post.Keywords }}
           <div>
-          {{ if .post.Thumbnail}}
-            <img id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
-          {{else}}
-            <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
-            <div class="image-placeholder" role="button" onclick="openImagePicker()">
-                <p type="button" class="bg-transparent" >Select a Thumbnail</p>
-             </div>
+            {{ if .post.Thumbnail}}
+                <img id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+            {{else}}
+                <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+                <div class="image-placeholder" role="button" onclick="openImagePicker()">
+                    <p type="button" class="bg-transparent" >Select a Thumbnail</p>
+                </div>
             {{end}}
           </div>
          
@@ -89,6 +89,9 @@
         document.querySelector('.posts-form').addEventListener('submit', function(e) {
 
             const editorContent = document.querySelector("#editor .ql-editor");
+
+            if (!editor) return 
+
             const editorContentText = `${editorContent.innerHTML}`
 
             document.getElementById('quillContent').value = editorContentText;

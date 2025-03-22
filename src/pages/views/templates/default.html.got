@@ -1,10 +1,9 @@
-<section class="admin-bar-actions">
 {{ if .currentUser.Admin }}
-<a class="button small" href="/pages/{{.page.ID}}/update">Edit Page</a>
-{{ else }}
-<a class="button small" href="/users/login">Login</a>
+    <section class="admin-bar-actions">
+        <a class="button small" href="/pages/{{.page.ID}}/update">Edit Page</a>
+    </section>
 {{ end }}
-</section>
+
 <section>
-{{ sanitize .page.Text }}
+{{ html .page.Text }}
 </section>
