@@ -66,6 +66,10 @@ body {
   color: var(--bs-primary) !important;
 }
 
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
 .btn-danger,
 .btn-danger:hover,
 .btn-danger:active,
@@ -73,6 +77,7 @@ body {
   background-color: var(--bs-danger) !important;
   border-color: var(--bs-danger) !important;
 }
+
 
 .btn-outline-danger,
 .btn-outline-danger:hover,
@@ -84,6 +89,10 @@ body {
 }
 .text-danger {
   color: var(--danger) !important;
+}
+
+.bg-danger {
+  background-color: var(--bs-success) !important;
 }
 
 .btn-success,
@@ -105,6 +114,9 @@ body {
 .text-success {
   color: var(--success) !important;
 }
+.bg-success {
+  background-color: var(--bs-success) !important;
+}
 
 .btn-info,
 .btn-info:hover,
@@ -124,6 +136,9 @@ body {
 }
 .text-info {
   color: var(--info) !important;
+}
+.bg-info {
+  background-color: var(--bs-info) !important;
 }
 
 .btn-warning,
@@ -146,6 +161,10 @@ body {
   color: var(--warning) !important;
 }
 
+.bg-warning {
+  background-color: var(--bs-warning) !important;
+}
+
 .btn-dark,
 .btn-dark:hover,
 .btn-dark:active,
@@ -164,6 +183,60 @@ body {
 .text-dark {
   color: var(--theta) !important;
 }
+
+.bg-alpha {
+  background-color: var(--alpha) !important;
+}
+.color-alpha {
+  color: var(--alpha) !important;
+}
+
+.bg-beta {
+  background-color: var(--beta) !important;
+}
+.color-beta {
+  color: var(--beta) !important;
+}
+
+.bg-gamma {
+  background-color: var(--gamma) !important;
+}
+.color-gamma {
+  color: var(--gamma) !important;
+}
+
+.bg-delta {
+  background-color: var(--delta) !important;
+} 
+
+.bg-epsilon {
+  background-color: var(--epsilon) !important;
+}
+.color-epsilon {
+  color: var(--epsilon) !important;
+}
+
+.bg-zeta {
+  background-color: var(--zeta) !important;
+}
+.color-zeta {
+  color: var(--zeta) !important;
+}
+
+.bg-eta {
+  background-color: var(--eta) !important;
+}
+.color-eta {
+  color: var(--eta) !important;
+}
+
+.bg-theta {
+  background-color: var(--theta) !important;
+}
+.color-theta {
+  color: var(--theta) !important;
+}
+
 
 /*  dialog  */
 .dialog-overlay {
@@ -401,4 +474,56 @@ table td {
 
 .badge-status-Suspended {
   background-color: var(--danger);
+}
+
+
+/*  form  */
+.form-select-fields {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  div{
+    width: 100%;
+    
+
+    select{
+      border: 1px solid var(--gamma);  
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+}
+
+.form-input-fields{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+
+  div {
+    width: 100%;
+
+    input{
+      border: 1px solid var(--gamma);  
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  
 }

@@ -2,7 +2,7 @@
     <h1 id="images-header-label" class="mb-4">Images ({{len .images}})</h1>
 
 
-    <section class="d-flex align-items-center justify-content-start gap-3 tw-mb-4">
+    <section class="d-flex align-items-center justify-content-start gap-3 mb-4">
         <div class="w-100">
             <div class="d-flex w-100">
                 <input type="search" id="imageSearch-images-page" class="form-control" placeholder="Search images..." oninput="filterImagesPage(this)">
@@ -22,7 +22,7 @@
     </section>
     <div class="alert alert-info">Try giving your images a descriptive name when uploading them in order to facilitate the search</div>
 
-    <div class="row" id="imagesContainer">
+    <div class="row row row-cols-2 row-cols-md-3 row-cols-lg-5  g-2 g-lg-3" id="imagesContainer">
         <!-- Le immagini verranno aggiunte dinamicamente -->
     </div>
 
@@ -53,11 +53,11 @@ function loadMoreImages(reset = false) {
         let imageCard = document.createElement("div");
 
         if (!imageCard) return 
-        imageCard.className = "col-md-4 mb-4 image-card";
+        imageCard.className = "image-card";
         imageCard.setAttribute("data-name", image.Name);
         imageCard.innerHTML = `
-            <div class="card">
-                <img src="/uploads/${image.Path}" class="card-img-top" alt="${image.Name}">
+            <div class="card" style="background-color: #fefae0;">
+                <img src="/uploads/${image.Path}" class="card-img-top" alt="${image.Name}" style="height: 200px; object-fit: cover; object-position: center;">
                 <div class="card-body text-center">
                     <button type="button" class="btn btn-danger w-100" onclick="deleteImage(this, '${image.Path}')">Delete</button>
                 </div>
