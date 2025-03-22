@@ -78,7 +78,6 @@ body {
   border-color: var(--bs-danger) !important;
 }
 
-
 .btn-outline-danger,
 .btn-outline-danger:hover,
 .btn-outline-danger:active,
@@ -207,7 +206,7 @@ body {
 
 .bg-delta {
   background-color: var(--delta) !important;
-} 
+}
 
 .bg-epsilon {
   background-color: var(--epsilon) !important;
@@ -236,7 +235,6 @@ body {
 .color-theta {
   color: var(--theta) !important;
 }
-
 
 /*  dialog  */
 .dialog-overlay {
@@ -476,7 +474,6 @@ table td {
   background-color: var(--danger);
 }
 
-
 /*  form  */
 .form-select-fields {
   display: flex;
@@ -489,12 +486,11 @@ table td {
     flex-direction: column;
   }
 
-  div{
+  div {
     width: 100%;
-    
 
-    select{
-      border: 1px solid var(--gamma);  
+    select {
+      border: 1px solid var(--gamma);
       border-radius: 5px;
       padding: 10px;
       width: 100%;
@@ -502,19 +498,18 @@ table td {
   }
 }
 
-.form-input-fields{
+.form-input-fields {
   display: flex;
   justify-content: start;
   align-items: center;
   width: 100%;
   gap: 10px;
 
-
   div {
     width: 100%;
 
-    input{
-      border: 1px solid var(--gamma);  
+    input {
+      border: 1px solid var(--gamma);
       border-radius: 5px;
       padding: 10px;
       width: 100%;
@@ -524,6 +519,15 @@ table td {
   @media (max-width: 768px) {
     flex-direction: column;
   }
+}
 
-  
+.admin-bar-actions {
+  margin-bottom: 24px;
+  a {
+    background-color: var(--gamma);
+    display: inline-block;
+    text-decoration: none;
+    color: var(--alpha);
+    padding: 8px 16px;
+  }
 }

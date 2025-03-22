@@ -1,6 +1,6 @@
 {{ if .currentUser.Admin }}
     <section class="admin-bar-actions">
-        <a class="button small" href="/pages/{{.page.ID}}/update">Edit Page</a>
+        <a href="/pages/{{.page.ID}}/update">Edit Page</a>
     </section>
 {{ end }}
 

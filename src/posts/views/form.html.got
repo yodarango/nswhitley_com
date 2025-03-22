@@ -2,13 +2,21 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 {{end}}
 
-<form method="post" class="resource-update-form posts-form">
+<form method="post" class="resource-update-form bg-alpha posts-form p-4 rounded-3">
 
-    <section class="actions">
-        <input type="submit" class="button" value="Save">
-        <a class="button grey" href="javascript:history.back()">Cancel</a>
+
+    <section class="d-flex align-items-center justify-content-end gap-4 mb-2">
+        <button type="submit" class="btn btn-success d-flex align-items-center justify-content-center gap-2" value="Save">
+            <i class="fa fa-save"></i>
+            <span>Save</span>
+        </button>
+        <a class="btn btn-secondary d-flex align-items-center justify-content-center gap-2" href="javascript:history.back()">
+            <i class="fa fa-times"></i>
+        <span>Cancel</span>
+        </a>
     </section>
-    <section class="inline-fields">
+
+    <section class="form-select-fields mb-2">
         {{ select "Status" "status" .post.Status .post.StatusOptions }}  
         {{ selectarray "Author" "author_id" .post.AuthorID .authors }}  
         {{ selectarray "Template" "template" .post.Template .post.TemplateOptions }} 
@@ -31,25 +39,30 @@
         <input type="hidden" name="thumbnail" id="thumbnailInput">
     </section>
 
-    <section class="wide-fields">
+    <section class="form-input-fields mb-4">
           {{ field "Name" "name" .post.Name }}
           {{ field "Summary" "summary" .post.Summary }}
           {{ field "Keywords" "keywords" .post.Keywords }}
-          <div>
+    </section>
+
+    <section>
+        <div class="mb-4">
             {{ if .post.Thumbnail}}
                 <img id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
             {{else}}
                 <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
-                <div class="image-placeholder" role="button" onclick="openImagePicker()">
-                    <p type="button" class="bg-transparent" >Select a Thumbnail</p>
-                </div>
+                <button class="bg-transparent border-0 color-zeta" onclick="openImagePicker()">
+                    <i class="fa-solid fa-image"></i>
+                    <span>Select a Thumbnail</span>
+                </button>
             {{end}}
-          </div>
+        </div>
          
-          
-        <div id="editor">{{html .post.Text}}</div>
+         <div style="background: white;">
+            <div id="editor">{{html .post.Text}}</div>
 
-        <input type="hidden" name="text" id="quillContent">
+            <input type="hidden" name="text" id="quillContent">
+        </div>
     </section>
 </form>
 
