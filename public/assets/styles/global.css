@@ -264,8 +264,31 @@ dialog {
 }
 
 /********************************
-*********** Admin menu **********
+********* Admin Layout **********
 *********************************/
+.main-content-admin {
+  @media (min-width: 800px) {
+    justify-content: start;
+    align-items: center;
+    display: flex;
+    gap: 48px;
+
+    .main-content-container {
+      width: calc(95% - 180px - 48px);
+      max-width: 1200px;
+      margin: 0;
+    }
+  }
+}
+
+/********************************
+*********** Admin Nav ***********
+*********************************/
+.navigation-container {
+  @media (min-width: 800px) {
+    width: 180px;
+  }
+}
 
 .content-area {
   transition: margin-left 0.3s;
@@ -283,6 +306,7 @@ dialog {
     padding: 24px 16px;
     overflow-y: auto;
     z-index: 1050;
+    width: inherit;
   }
 
   .content-area {
@@ -370,16 +394,7 @@ dialog {
 }
 
 /********************************
-*********** Admin menu **********
-*********************************/
-.main-content {
-  @media (min-width: 800px) {
-    margin-left: calc(170px + 20px);
-  }
-}
-
-/********************************
-*********** Admin menu **********
+*********** Table Cont **********
 *********************************/
 .table-container {
   overflow-y: auto;

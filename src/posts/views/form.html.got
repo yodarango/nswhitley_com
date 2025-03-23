@@ -24,10 +24,10 @@
 
     <section>
         <div id="delete-confirm-dialog-overlay" class="dialog-overlay delete-confirm-dialog-overlay justify-content-center align-items-center">
-            <dialog id="image-dialog">
+            <dialog id="imageDialog">
                 <div class="d-flex align-items-center justify-content-between mb-3 gap-2">
                     <h4>Select an Image</h4>
-                    <button class="imageDialog-closeBtn bg-transparent m-0 p-0 fs-2 text-body" onclick="closeImagePicker()">
+                    <button type="button" class="imageDialog-closeBtn bg-transparent m-0 p-0 fs-2 text-body border-0" data-modal-btn="close-image-picker">
                         <i class="fa fa-close"></i></button>
                     </button>
                 </div>
@@ -48,10 +48,10 @@
     <section>
         <div class="mb-4">
             {{ if .post.Thumbnail}}
-                <img id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+                <img id="selectedThumbnail" data-modal-btn="open-image-picker" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
             {{else}}
-                <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" onclick="openImagePicker()" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
-                <button class="bg-transparent border-0 color-zeta" onclick="openImagePicker()">
+                <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" data-modal-btn="open-image-picker" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+                <button type="button" class="bg-transparent border-0 color-zeta" data-modal-btn="open-image-picker">
                     <i class="fa-solid fa-image"></i>
                     <span>Select a Thumbnail</span>
                 </button>
@@ -114,8 +114,6 @@
 
     <script>
 
-        // select a post thumbnail
-        // Variabile per tenere traccia se le immagini sono già state caricate
         let imagesLoaded = false;
 
         // Funzione per aprire il modal
@@ -123,14 +121,14 @@
             const dialog = document.getElementById("imageDialog");
 
             dialog.showModal();
-            document.getElementById("delete-confirm-dialog-overlay").style.display = "flex";
-            dialog.scrollTop = 0;
+                document.getElementById("delete-confirm-dialog-overlay").style.display = "flex";
+                dialog.scrollTop = 0;
             }
 
             // Funzione per chiudere il modal
             function closeImagePicker() {
-            document.getElementById("imageDialog").close();
-            document.getElementById("delete-confirm-dialog-overlay").style.display = "none";
+                document.getElementById("imageDialog").close();
+                document.getElementById("delete-confirm-dialog-overlay").style.display = "none";
             }
 
             // Funzione per caricare le immagini nel background
@@ -138,11 +136,11 @@
             if (imagesLoaded) return; // Evita di caricare più volte le immagini
 
             try {
-                const response = await fetch("/api/images"); // Sostituisci con il tuo endpoint API
+                const response = await fetch("/api/images"); 
                 const images = await response.json();
 
                 const galleryDiv = document.querySelector(".gallery");
-                galleryDiv.innerHTML = ""; // Pulisce la galleria prima di aggiungere le immagini
+                galleryDiv.innerHTML = ""; 
 
                 images.forEach((image) => {
                 const imgElement = document.createElement("img");
@@ -198,6 +196,17 @@
                 }
             });
         }
+
+        const closeButtons = document.querySelectorAll('[data-modal-btn="close-image-picker"]');
+        const openButtons = document.querySelectorAll('[data-modal-btn="open-image-picker"]')
+
+        closeButtons.forEach(button => {
+                button.addEventListener('click',closeImagePicker);
+        });
+
+        openButtons.forEach(button => {
+                button.addEventListener('click', openImagePicker);
+        });
     </script>
 
 {{end}}

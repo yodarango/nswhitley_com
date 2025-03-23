@@ -25,30 +25,11 @@
                 <a class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" href="{{ .post.UpdateURL }}">
                     <i class="fa-solid fa-pen-to-square"></i> Edit
                 </a>
-                <button onclick="DeleteModalConfirmation('{{.post.ID}}')" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-trash"></i> Delete
-                </button>
-            </div>
-
-            <!-- Modal Bootstrap -->
-            <div class="modal fade" id="delete-confirm-dialog-{{.post.ID}}" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Confirm Deletion</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="mb-4">This action is destructive, are you sure you want to delete <strong>{{.post.Name}}</strong>?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <form method="post" action="{{.post.DestroyURL}}">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <form method="post" action="{{ .post.DestroyURL }}" onsubmit="return confirm('Are you sure you want to delete {{.post.Name}}?')">
+                    <button type="submit" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </form>
             </div>
         </td>
     </tr>

@@ -9,17 +9,20 @@
         <div class="warning">{{.warning}}</div>
     {{ end }}
   
-    <header>Header</header>
-    <section>
-        {{ if .currentUser.Admin }}
-            {{ template "app/views/admin_nav.html.got" . }}
-        {{ else }}
-            {{ template "app/views/public_nav.html.got" . }}
-        {{end}}
-    </header>
+    <header>----------------------------Header -----------------------</header>
 
-    <main class="container main-content">
-        {{ .content }}
+    <main class="main-content {{ if .currentUser.Admin}}main-content-admin{{end}}">
+        <section class="navigation-container">
+            {{ if .currentUser.Admin }}
+                {{ template "app/views/admin_nav.html.got" . }}
+            {{ else }}
+                {{ template "app/views/public_nav.html.got" . }}
+            {{end}}
+        </section>
+
+        <section class="main-content-container">
+            {{ .content }}
+        </section>
     </main>
 
     <footer>

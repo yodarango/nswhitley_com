@@ -5,15 +5,17 @@
   <div class="overlay"></div>
   
   <nav class="admin {{ if dev }}dev{{ end }}">
-    <h4>Admin</h4>
-    <ul class="main_list">
-      <li><a href="/users"><i class="fas fa-users"></i> Users</a></li>
-      <li><a href="/pages"><i class="fas fa-file-alt"></i> Pages</a></li>
-      <li><a href="/posts"><i class="fas fa-newspaper"></i> Posts</a></li>
-      <li><a href="/tags"><i class="fas fa-tags"></i> Tags</a></li>
-      <li><a href="/redirects"><i class="fas fa-exchange-alt"></i> Redirects</a></li>
-      <li><a href="/images"><i class="fas fa-images"></i> Images</a></li>
-    </ul>
+   {{if .currentUser.Admin}}
+      <h4>Admin</h4>
+      <ul class="main_list">
+        <li><a href="/users"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="/pages"><i class="fas fa-file-alt"></i> Pages</a></li>
+        <li><a href="/posts"><i class="fas fa-newspaper"></i> Posts</a></li>
+        <li><a href="/tags"><i class="fas fa-tags"></i> Tags</a></li>
+        <li><a href="/redirects"><i class="fas fa-exchange-alt"></i> Redirects</a></li>
+        <li><a href="/images"><i class="fas fa-images"></i> Images</a></li>
+      </ul>
+    {{end}}
     
     <h4>Public</h4>
     <ul class="main_list">

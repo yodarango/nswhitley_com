@@ -2,7 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   RemoveWordPressImages();
-  // aspetta un puo prima di scaricare questo
+
   setTimeout(() => {
     loadImages();
   }, 5000);

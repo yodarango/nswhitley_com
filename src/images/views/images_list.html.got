@@ -1,0 +1,129 @@
+<div class="text-center mt-3">
+    <button class="d-inline-block color-secondary bg-transparent m-auto border-0" id="loadMoreBtn" onclick="loadMoreImages()"><u>Load more</></button>
+</div>
+
+<script>
+let allImages = {{ .images }}; 
+let imagesPerPage = 50;
+let currentIndex = 0; 
+let filteredImages = allImages; 
+
+function loadMoreImages(reset = false) {
+    let imagesContainer = document.getElementById("imagesContainer");
+
+    if (reset) {
+        imagesContainer.innerHTML = "";
+        currentIndex = 0;
+    }
+
+    let endIndex = Math.min(currentIndex + imagesPerPage, filteredImages.length);
+    let imagesToLoad = filteredImages.slice(currentIndex, endIndex);
+
+    imagesToLoad.forEach((image) => {
+        let imageCard = document.createElement("div");
+
+        if (!imageCard) return 
+        imageCard.className = "image-card";
+        imageCard.setAttribute("data-name", image.Name);
+        imageCard.innerHTML = `
+            <div class="card" style="background-color: #fefae0;">
+                <img src="/uploads/${image.Path}" class="card-img-top" alt="${image.Name}" style="height: 200px; object-fit: cover; object-position: center;">
+                <div class="card-body text-center">
+                    <button type="button" class="btn btn-danger w-100" onclick="deleteImage(this, '${image.Path}')">Delete</button>
+                </div>
+            </div>
+        `;
+        imagesContainer.appendChild(imageCard);
+    });
+
+    currentIndex += imagesPerPage; 
+
+    document.getElementById("loadMoreBtn").style.display = currentIndex >= filteredImages.length ? "none" : "block";
+}
+
+function filterImagesPage(e) {
+
+    let searchQuery = e.value.toLowerCase();
+    
+    searchQuery = searchQuery.replace(/[-_ ]/g, "");
+
+    filteredImages = allImages.filter(image => {
+        let normalizedImageName = image.Name.toLowerCase().replace(/[-_ ]/g, ""); 
+        return normalizedImageName.includes(searchQuery);
+    });
+
+    loadMoreImages(true);
+}
+
+async function deleteImage(button, imagePath) {
+    if (!confirm("Are you sure you want to delete this image")) return;
+
+    try {
+        const response = await fetch("/api/images/delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ path: imagePath })
+        });
+
+        const result = await response.json();
+
+        if (result.Success) {
+            // Rimuove solo l'immagine eliminata dall'array e aggiorna la vista
+            allImages = allImages.filter(img => img.Path !== imagePath);
+            filteredImages = filteredImages.filter(img => img.Path !== imagePath);
+            loadMoreImages(true);
+        } else {
+            alert("Errore nella cancellazione dell'immagine.");
+        }
+    } catch (error) {
+        console.error("Errore:", error);
+        alert("Errore nel server, riprova più tardi.");
+    }
+}
+
+document.getElementById("uploadForm").addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    let fileInput = document.getElementById("imageUpload");
+    let file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select an image to upload");
+        return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) { // 2MB
+        alert("L'immagine non può essere più grande di 2MB.");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("image", file);
+
+    try {
+        let response = await fetch("/api/images/create", {
+            method: "POST",
+            body: formData
+        });
+
+        let result = await response.json();
+
+        if (result.Success) {
+            let newImage = { Name: result.Name, Path: result.Path };
+            allImages.unshift(newImage);
+            filteredImages = allImages;
+            loadMoreImages(true);
+            fileInput.value = "";
+        } else {
+            alert("Errore nel caricamento dell'immagine.");
+        }
+    } catch (error) {
+        console.error("Errore:", error);
+        alert("Errore nel server, riprova più tardi.");
+    }
+});
+
+
+// Carica le prime 50 immagini al caricamento della pagina
+document.addEventListener("DOMContentLoaded", () => loadMoreImages(true));
+</script>

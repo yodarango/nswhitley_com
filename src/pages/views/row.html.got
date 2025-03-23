@@ -19,7 +19,7 @@
                 <a class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2" href="{{ .page.UpdateURL }}">
                     <i class="fa-solid fa-pen-to-square"></i> Edit
                 </a>
-                <form method="post" action="{{ .page.DestroyURL }}" onsubmit="return confirm('Sei sicuro di voler eliminare {{.page.Name}}?')">
+                <form method="post" action="{{ .page.DestroyURL }}" onsubmit="return confirm('Are you sure you want to delete {{.page.Name}}?')">
                     <button type="submit" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
                         <i class="fa-solid fa-trash"></i> Delete
                     </button>

@@ -16,24 +16,11 @@
                     <span>Edit</span>
                     <i class="fa-solid fa-pen-to-square"></i>
                 </a>
-                <button onclick="DeleteModalConfirmation('{{.user.ID}}')" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
-                    <span>Delete</span>
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-            </div>
-
-            <!-- Overlay scuro per lo sfondo -->
-            <div class="delete-confirm-dialog-overlay" id="delete-confirm-dialog-overlay-{{.user.ID}}">
-                <!-- Finestra di dialogo per conferma -->
-                <dialog class="delete-post-confirm-dialog" id="delete-confirm-dialog-{{.user.ID}}">
-                    <form method="post"  action="{{.user.DestroyURL}}">
-                        <p class="mb-4">This action is destructive, are you sure you want to delete {{.user.Name}}?</p>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button type="button" id="delete-confirm-dialog-cancel-btn" class="btn btn-secondary my-0">Cancel</button>
-                            <button type="submit" id="confirmBtn" class="btn btn-danger my-0">Delete</button>
-                        </div>
-                    </form>
-                </dialog>
+                <form method="post" action="{{ .user.DestroyURL }}" onsubmit="return confirm('Are you sure you want to delete {{.user.Name}}?')">
+                    <button type="submit" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </form>
             </div>
         </td>
     </tr>
