@@ -39,6 +39,7 @@ func HandleShowHome(w http.ResponseWriter, r *http.Request) error {
 	view.AddKey("meta_title", config.Get("meta_title"))
 	view.AddKey("meta_desc", config.Get("meta_desc"))
 	view.AddKey("meta_keywords", config.Get("meta_keywords"))
+	view.AddKey("isPublic", true)
 	view.Template("pages/views/templates/default.html.got")
 	return view.Render()
 }

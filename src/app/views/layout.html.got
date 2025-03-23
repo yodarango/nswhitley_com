@@ -4,26 +4,34 @@
     {{ template "app/views/meta.html.got" . }}
     {{ script "app" }}
 </head>
-<body>
+<body class={{if .isPublic}}public-content{{end}}>
+
     {{ if .warning }}
         <div class="warning">{{.warning}}</div>
     {{ end }}
-  
-    <header>----------------------------Header -----------------------</header>
 
-    <main class="main-content {{ if .currentUser.Admin}}main-content-admin{{end}}">
-        <section class="navigation-container">
-            {{ if .currentUser.Admin }}
-                {{ template "app/views/admin_nav.html.got" . }}
-            {{ else }}
+    {{ if not .isPublic }}
+        {{ if .currentUser.Admin}}
+            <main class="main-content-admin">
+                <section class="navigation-container">
+                    {{ template "app/views/admin_nav.html.got" . }}
+                </section>
+                <section class="main-content-container">
+                {{ .content }}
+                </section>
+            </main>
+        {{end}}
+    {{else}}
+    LEFT OFF, assicurati che questo funzioni
+        <main>
+            <header>
                 {{ template "app/views/public_nav.html.got" . }}
-            {{end}}
-        </section>
-
-        <section class="main-content-container">
-            {{ .content }}
-        </section>
-    </main>
+            </header>
+            <section>
+                {{.content}}
+            </section>
+        </main>
+    {{end}}
 
     <footer>
     {{ template "app/views/footer.html.got" . }}
