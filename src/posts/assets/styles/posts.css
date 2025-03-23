@@ -35,7 +35,7 @@
   max-height: 250px;
 }
 
-#image-dialog {
+#imageDialog {
   max-width: 1000px;
 
   .gallery {
@@ -60,6 +60,22 @@
   width: 100%;
   max-width: 400px;
   height: 400px;
+  background-color: #fff7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    background-color: transparent;
+    font-size: 50px;
+    color: rgb(192, 124, 23);
+  }
+}
+
+.image-placeholder-thumbnail-overwrite {
+  width: 100%;
+  max-width: 250px;
+  height: 250px;
   background-color: #fff7eb;
   display: flex;
   align-items: center;

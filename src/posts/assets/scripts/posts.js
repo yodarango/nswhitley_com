@@ -1,13 +1,8 @@
 /* JS for posts */
-
-document.addEventListener("DOMContentLoaded", () => {
-  RemoveWordPressImages();
-
-  setTimeout(() => {
-    loadImages();
-  }, 5000);
-  SearchPost();
-});
+let imagesLoaded = false;
+let allImages = [];
+let imagesRendered = 0;
+const BATCH_SIZE = 25;
 
 // disable all old wordpress images in content
 function RemoveWordPressImages() {
@@ -44,15 +39,187 @@ function SearchPost() {
   searchInput.addEventListener("input", function () {
     const searchTerm = searchInput.value.toLowerCase().trim();
 
+    // Se non c'è nessun termine di ricerca, mostra solo i primi BATCH_SIZE post
+    console.log(searchTerm);
+    if (!searchTerm) {
+      rows.forEach((row, index) => {
+        if (index < BATCH_SIZE) {
+          row.parentElement.style.display = "";
+        } else {
+          row.parentElement.style.display = "none";
+        }
+      });
+      return;
+    }
+
     rows.forEach((row) => {
       const postName = row.dataset.postName.toLowerCase().trim();
 
-      // Mostra solo le righe che corrispondono alla ricerca
       if (postName.includes(searchTerm)) {
-        row.parentElement.style.display = ""; // Mostra la riga
+        row.parentElement.style.display = "";
       } else {
-        row.parentElement.style.display = "none"; // Nasconde la riga
+        row.parentElement.style.display = "none";
       }
     });
   });
 }
+
+// Apri modale
+function openImagePicker() {
+  const dialog = document.getElementById("imageDialog");
+  dialog.showModal();
+  document.getElementById("delete-confirm-dialog-overlay").style.display =
+    "flex";
+  dialog.scrollTop = 0;
+}
+
+function closeImagePicker() {
+  document.getElementById("imageDialog").close();
+  document.getElementById("delete-confirm-dialog-overlay").style.display =
+    "none";
+}
+
+async function loadImages() {
+  if (imagesLoaded) return;
+
+  try {
+    const response = await fetch("/api/images");
+    allImages = await response.json();
+
+    const galleryDiv = document.querySelector(".gallery");
+    const loadMoreBtn = document.getElementById("loadMoreImagesBtn");
+
+    galleryDiv.innerHTML = "";
+    imagesRendered = 0;
+
+    renderNextBatch();
+
+    if (imagesRendered < allImages.length) {
+      loadMoreBtn.style.display = "block";
+    }
+
+    loadMoreBtn.onclick = () => {
+      renderNextBatch();
+      if (imagesRendered >= allImages.length) {
+        loadMoreBtn.style.display = "none";
+      }
+    };
+
+    imagesLoaded = true;
+  } catch (error) {
+    console.error("Errore nel caricamento delle immagini:", error);
+  }
+}
+
+// Renderizza un blocco da 25 immagini
+function renderNextBatch() {
+  const galleryDiv = document.querySelector(".gallery");
+  const batch = allImages.slice(imagesRendered, imagesRendered + BATCH_SIZE);
+
+  batch.forEach((image) => {
+    const imgElement = document.createElement("img");
+    imgElement.src = "/uploads/" + image.Path;
+    imgElement.alt = image.Name;
+    imgElement.style.width = "100px";
+    imgElement.style.cursor = "pointer";
+
+    imgElement.addEventListener("click", function () {
+      const imageThumb = document.getElementById("selectedThumbnail");
+      const imageThumbPlaceholder =
+        document.querySelector(".image-placeholder");
+
+      if (imageThumb) {
+        imageThumb.src = imgElement.src;
+        imageThumb.classList.add("d-block");
+        imageThumb.classList.remove("d-none");
+      }
+
+      if (imageThumbPlaceholder) {
+        imageThumbPlaceholder.classList.add("d-none");
+        imageThumbPlaceholder.classList.remove("d-block");
+      }
+
+      document.getElementById("thumbnailInput").value = "/" + image.Path;
+      closeImagePicker();
+    });
+
+    galleryDiv.appendChild(imgElement);
+  });
+
+  imagesRendered += batch.length;
+}
+
+// Filtra tutte le immagini corrispondenti alla ricerca
+function filterImagesModal(e) {
+  const searchTerm = e.value.replace(/[-_ ]/g, "").toLowerCase();
+  const galleryDiv = document.querySelector(".gallery");
+  const loadMoreBtn = document.getElementById("loadMoreImagesBtn");
+
+  galleryDiv.innerHTML = "";
+
+  let filteredCount = 0;
+
+  allImages.forEach((image) => {
+    const postName = image.Name.toLowerCase().replace(/[-_ ]/g, "");
+
+    if (postName.includes(searchTerm)) {
+      const imgElement = document.createElement("img");
+      imgElement.src = "/uploads/" + image.Path;
+      imgElement.alt = image.Name;
+      imgElement.style.width = "100px";
+      imgElement.style.cursor = "pointer";
+
+      imgElement.addEventListener("click", function () {
+        const imageThumb = document.getElementById("selectedThumbnail");
+        const imageThumbPlaceholder =
+          document.querySelector(".image-placeholder");
+
+        if (imageThumb) {
+          imageThumb.src = imgElement.src;
+          imageThumb.classList.add("d-block");
+          imageThumb.classList.remove("d-none");
+        }
+
+        if (imageThumbPlaceholder) {
+          imageThumbPlaceholder.classList.add("d-none");
+          imageThumbPlaceholder.classList.remove("d-block");
+        }
+
+        document.getElementById("thumbnailInput").value = "/" + image.Path;
+        closeImagePicker();
+      });
+
+      galleryDiv.appendChild(imgElement);
+      filteredCount++;
+    }
+  });
+
+  loadMoreBtn.style.display =
+    filteredCount === allImages.length ? "block" : "none";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const closeButtons = document.querySelectorAll(
+    '[data-modal-btn="close-image-picker"]'
+  );
+  const openButtons = document.querySelectorAll(
+    '[data-modal-btn="open-image-picker"]'
+  );
+
+  closeButtons.forEach((button) =>
+    button.addEventListener("click", closeImagePicker)
+  );
+
+  openButtons.forEach((button) =>
+    button.addEventListener("click", () => {
+      openImagePicker();
+      loadImages(); // Carica solo al primo click
+    })
+  );
+
+  RemoveWordPressImages();
+
+  loadImages();
+
+  SearchPost();
+});

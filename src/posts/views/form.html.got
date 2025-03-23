@@ -33,6 +33,7 @@
                 </div>
                  <input type="search" id="imageSearch" class="form-control mb-4" placeholder="Search images..." oninput="filterImagesModal(this)">
                 <div class="gallery"></div>
+                <button id="loadMoreImagesBtn" class="bg-transparent p-0 color primary"><u>Load more</u></button>
             </dialog>
         </div>
 
@@ -48,7 +49,7 @@
     <section>
         <div class="mb-4">
             {{ if .post.Thumbnail}}
-                <img id="selectedThumbnail" data-modal-btn="open-image-picker" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
+                <img id="selectedThumbnail" class="image-placeholder-thumbnail-overwrite" data-modal-btn="open-image-picker" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
             {{else}}
                 <img class="image-placeholder-thumbnail-overwrite d-none" id="selectedThumbnail" data-modal-btn="open-image-picker" src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />
                 <button type="button" class="bg-transparent border-0 color-zeta" data-modal-btn="open-image-picker">
@@ -71,25 +72,28 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
     <script>
-        const toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike'],      
-        ['blockquote', 'code-block'],
-        ['link', 'image', 'video', 'formula'],
+    const Color = Quill.import('attributors/style/color');
+    Color.background = [
+        "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#E6CCFF", "#FFCCE5",
+    ];
 
-        [{ 'header': 1 }, { 'header': 2 }],             
+    Color.color = [
+        "#FF4C5B", "#FF9C4C", "#FFF44C", "#4CFF9C", "#4CB8FF", "#B84CFF", "#FF4CB0",
+        "#000000", "#F2F2F2", "#D2D2D2", "#B2B2B2", "#525252"
+    ]
+
+    Quill.register(Color, true);
+
+        const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],      
+        ['link', 'image', 'video'],         
         [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
         [{ 'script': 'sub'}, { 'script': 'super' }],     
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          
-        [{ 'direction': 'rtl' }],                         
-
+        [{ 'indent': '-1'}, { 'indent': '+1' }],                                 
         [{ 'size': ['small', false, 'large', 'huge'] }],  
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-        [{ 'color': [] }, { 'background': [] }],         
-        [{ 'font': [] }],
-        [{ 'align': [] }],
-
-        ['clean']                                       
+        [{ 'color': Color.color }, { 'background': Color.background}],         
+        [{ 'align': [] }],                                  
         ];
 
         const quill = new Quill('#editor', {
@@ -108,104 +112,6 @@
             const editorContentText = `${editorContent.innerHTML}`
 
             document.getElementById('quillContent').value = editorContentText;
-        });
-    </script>
-
-
-    <script>
-
-        let imagesLoaded = false;
-
-        // Funzione per aprire il modal
-        function openImagePicker() {
-            const dialog = document.getElementById("imageDialog");
-
-            dialog.showModal();
-                document.getElementById("delete-confirm-dialog-overlay").style.display = "flex";
-                dialog.scrollTop = 0;
-            }
-
-            // Funzione per chiudere il modal
-            function closeImagePicker() {
-                document.getElementById("imageDialog").close();
-                document.getElementById("delete-confirm-dialog-overlay").style.display = "none";
-            }
-
-            // Funzione per caricare le immagini nel background
-            async function loadImages() {
-            if (imagesLoaded) return; // Evita di caricare più volte le immagini
-
-            try {
-                const response = await fetch("/api/images"); 
-                const images = await response.json();
-
-                const galleryDiv = document.querySelector(".gallery");
-                galleryDiv.innerHTML = ""; 
-
-                images.forEach((image) => {
-                const imgElement = document.createElement("img");
-                imgElement.src = "/uploads/" + image.Path;
-                imgElement.alt = image.Name;
-                imgElement.style.width = "100px";
-                imgElement.style.cursor = "pointer";
-
-                // Quando l'utente clicca su un'immagine, aggiorna il thumbnail selezionato
-                imgElement.addEventListener("click", function () {
-                    const imageThumb = document.getElementById("selectedThumbnail")
-                    const imageThumbPlaceholder = document.querySelector(".image-placeholder")
-
-                    if (imageThumb){
-                        imageThumb.src = imgElement.src;
-                        imageThumb.classList.add("d-block")
-                        imageThumb.classList.remove("d-none")
-                    }
-
-                    if (imageThumbPlaceholder){
-                        imageThumbPlaceholder.classList.add("d-none")
-                        imageThumbPlaceholder.classList.remove("d-block")
-                    }
-                    document.getElementById("thumbnailInput").value = "/" + image.Path;
-                    closeImagePicker();
-                });
-
-                galleryDiv.appendChild(imgElement);
-                });
-
-                imagesLoaded = true; // Imposta il flag a true dopo il primo caricamento
-            } catch (error) {
-                console.error("Errore nel caricamento delle immagini:", error);
-            }
-        }
-
-        // cerca una imagine 
-        function filterImagesModal(e) {
-            const rows = Array.from(document.querySelectorAll(".gallery img"));
-
-            if (!e) return;
-
-            
-            const searchTerm = e.value.replace(/[-_ ]/g, "").toLowerCase();
-
-            rows.forEach((row) => {
-                const postName = row.alt.toLowerCase().replace(/[-_ ]/g, "")
-
-                if (postName.includes(searchTerm)) {
-                    row.style.display = ""; // Mostra la riga
-                } else {
-                    row.style.display = "none"; // Nasconde la riga
-                }
-            });
-        }
-
-        const closeButtons = document.querySelectorAll('[data-modal-btn="close-image-picker"]');
-        const openButtons = document.querySelectorAll('[data-modal-btn="open-image-picker"]')
-
-        closeButtons.forEach(button => {
-                button.addEventListener('click',closeImagePicker);
-        });
-
-        openButtons.forEach(button => {
-                button.addEventListener('click', openImagePicker);
         });
     </script>
 
