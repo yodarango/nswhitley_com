@@ -87,3 +87,13 @@
     color: rgb(192, 124, 23);
   }
 }
+
+.ql-formats {
+  border-left: 1px solid #c8c8c8;
+  margin-bottom: 8px;
+  padding: 4px;
+
+  button {
+    width: 30px;
+  }
+}
