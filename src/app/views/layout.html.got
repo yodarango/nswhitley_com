@@ -22,12 +22,11 @@
             </main>
         {{end}}
     {{else}}
-    LEFT OFF, assicurati che questo funzioni
         <main>
             <header>
                 {{ template "app/views/public_nav.html.got" . }}
             </header>
-            <section>
+            <section class="main-content-container">
                 {{.content}}
             </section>
         </main>

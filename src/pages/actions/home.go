@@ -10,6 +10,7 @@ import (
 
 	"github.com/fragmenta/fragmenta-cms/src/lib/session"
 	"github.com/fragmenta/fragmenta-cms/src/pages"
+	"github.com/fragmenta/fragmenta-cms/src/posts"
 	"github.com/fragmenta/fragmenta-cms/src/users"
 )
 
@@ -32,6 +33,17 @@ func HandleShowHome(w http.ResponseWriter, r *http.Request) error {
 
 	currentUser := session.CurrentUser(w, r)
 
+	// get the posts
+	q := posts.Query()
+	q.Order("created_at desc")
+
+	// Fetch the posts
+	results, err := posts.FindAll(q)
+	if err != nil {
+		return server.InternalError(err)
+	}
+
+
 	view := view.NewWithPath(r.URL.Path, w)
 	view.AddKey("title", "Fragmenta app")
 	view.AddKey("page", page)
@@ -40,6 +52,7 @@ func HandleShowHome(w http.ResponseWriter, r *http.Request) error {
 	view.AddKey("meta_desc", config.Get("meta_desc"))
 	view.AddKey("meta_keywords", config.Get("meta_keywords"))
 	view.AddKey("isPublic", true)
+	view.AddKey("posts", results)
 	view.Template("pages/views/templates/default.html.got")
 	return view.Render()
 }

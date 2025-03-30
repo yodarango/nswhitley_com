@@ -1,70 +1,73 @@
-{{ if .currentUser.Admin }}
-    <section class="admin-bar-actions">
-        <a href="/pages/{{.page.ID}}/update">Edit Page</a>
-    </section>
-{{ end }}
-
-<div>
+<div class="page-container-home">
     <section class="intro">
-        <h2>The N. S. Whitley Blog</h2>
-        {{ html .page.Text }}
+        <div>
+            <div class="title-with-sticker">
+                <h1 class="animation-typewriter">N. S. Whitley</h1>
+            </div>
+        </div>
+        <div class="home-intro-landing">
+        </div>
     </section>
 
-    <section class="featured-posts">
-        <h2>Recent Posts</h2>
-        
-        <article class="post">
-            <h3><a href="post1.html">The Importance of Critical Thinking in the Digital Age</a></h3>
-            <div class="post-meta">May 15, 2023</div>
-            <p>In an era of information overload and algorithmic curation, the ability to think critically has never been more important. This post explores strategies for maintaining intellectual autonomy in the digital landscape.</p>
-            <a href="post1.html" class="read-more">Read More</a>
-        </article>
+    <div class="below-landing">
+        <section class="featured-posts flex-shrink-0">
+            <h2>Recent Posts</h2>
+            <div class="p-4 bg-white">
+                {{ $0 := . }}
+                {{ range $i, $p := .posts }}
+                  {{ if lt $i 4 }}
+                        <article class="post-card">
+                            <h3><a href="/blog/{{ $p.ID }}">{{$p.Name}}</a></h3>
+                            <div class="post-meta-container">
+                                <div class="post-thumbnail">
+                                    <img src="/uploads{{$p.Thumbnail}}" alt="image thumbnail for {{$p.Name}}" />
+                                </div>
+                                <div class="post-info">
+                                    <div class="post-meta">{{time $p.UpdatedAt}}</div>
+                                    <div class="post-text">{{html $p.Text}}</div>
+                                    <a href="/blog/{{ $p.ID }}" class="read-more">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                    {{end}}
+                {{ end }}
+            </div>
+        </section>
+        <div class="page-container-home-preliminaries flex-shrink-0">
+            <aside class="sidebar">
+                <div class="about-widget">
+                    <h3>About Me</h3>
+                    <img src="/placeholder.svg?height=150&width=150" alt="Author photo" class="author-photo">
+                    <p>I'm a writer, philosopher, and technology enthusiast exploring the intersection of ideas and their impact on society.</p>
+                    <a href="about.html" class="btn">Learn More</a>
+                </div>
 
-        <article class="post">
-            <h3><a href="post2.html">Reflections on Modern Philosophy</a></h3>
-            <div class="post-meta">April 28, 2023</div>
-            <p>How do the great philosophical traditions help us navigate contemporary challenges? This essay examines the relevance of philosophical inquiry in addressing today's most pressing questions.</p>
-            <a href="post2.html" class="read-more">Read More</a>
-        </article>
+                <div class="categories-widget">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Philosophy</a></li>
+                        <li><a href="#">Technology</a></li>
+                        <li><a href="#">Ethics</a></li>
+                        <li><a href="#">Culture</a></li>
+                        <li><a href="#">Book Reviews</a></li>
+                    </ul>
+                </div>
 
-        <article class="post">
-            <h3><a href="post3.html">The Ethics of Artificial Intelligence</a></h3>
-            <div class="post-meta">March 12, 2023</div>
-            <p>As AI systems become increasingly integrated into our daily lives, we must confront important ethical questions about autonomy, responsibility, and the nature of consciousness itself.</p>
-            <a href="post3.html" class="read-more">Read More</a>
-        </article>
-    </section>
-
-    <aside class="sidebar">
-        <div class="about-widget">
-            <h3>About Me</h3>
-            <img src="/placeholder.svg?height=150&width=150" alt="Author photo" class="author-photo">
-            <p>I'm a writer, philosopher, and technology enthusiast exploring the intersection of ideas and their impact on society.</p>
-            <a href="about.html" class="btn">Learn More</a>
-        </div>
-
-        <div class="categories-widget">
-            <h3>Categories</h3>
-            <ul>
-                <li><a href="#">Philosophy</a></li>
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Ethics</a></li>
-                <li><a href="#">Culture</a></li>
-                <li><a href="#">Book Reviews</a></li>
-            </ul>
-        </div>
-
-        <div class="subscribe-widget">
-            <h3>Stay Updated</h3>
-            <p>Subscribe to receive new posts directly in your inbox.</p>
-            <form id="subscribe-form">
-                <input type="email" placeholder="Your email address" required>
-                <button type="submit" class="btn">Subscribe</button>
-            </form>
-        </div>
-    </aside>
-<div>
-
-    {{define "extra_footer"}}
-        <script src="script.js"></script>
-    {{end}}
+                <div class="subscribe-widget">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to receive new posts directly in your inbox.</p>
+                    <form id="subscribe-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </aside>
+        <div>
+    </div>
+</div>
+{{define "extra_footer"}}
+    <script>
+        console.log({{.posts}})
+    </script>
+    <script src="script.js"></script>
+{{end}}

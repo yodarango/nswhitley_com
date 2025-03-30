@@ -1,0 +1,413 @@
+/* variables  */
+:root {
+  --alpha: #fefae0;
+  --beta: #e9e4c4;
+  --gamma: #cb997e;
+  --delta: #ddbea9;
+  --epsilon: #6b705c;
+  --zeta: #a5a58d;
+  --eta: #b7b7a4;
+  --theta: #30312c;
+
+  --success: #6bc881;
+  --warning: #f0bd75;
+  --danger: #f26d5b;
+  --info: #5bc0de;
+
+  /* Bootstraps */
+  --bs-primary: var(--epsilon);
+  --bs-danger: var(--danger);
+  --bs-success: var(--success);
+  --bs-info: var(--info);
+  --bs-warning: var(--warning);
+
+  /*  app specific */
+  --color-primary: var(--theta);
+  --color-secondary: var(--epsilon);
+  --color-accent: var(--zeta);
+  --color-accent-light: var(--beta);
+  --color-background: var(--alpha);
+  --color-border: var(--gamma);
+  --color-text: var(--theta);
+  --color-text-light: var(--eta);
+  --color-link: var(--epsilon);
+  --color-link-hover: var(--delta);
+  --font-primary: "Georgia", serif;
+  --font-secondary: "Arial", sans-serif;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --border-radius: 4px;
+  --container-width: 1200px;
+}
+
+body {
+  background-color: var(--alpha);
+  font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  color: var(--theta) !important;
+}
+
+.main-content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 94%;
+}
+
+/*  Resets */
+button,
+.btn,
+input {
+  border-radius: 0px !important;
+}
+
+a,
+a:active,
+a:visited {
+  color: var(--theta);
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: var(--alpha) !important;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  background-color: transparent;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
+  background-color: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
+}
+
+.btn-outline-danger,
+.btn-outline-danger:hover,
+.btn-outline-danger:active,
+.btn-outline-danger:focus {
+  color: var(--bs-danger);
+  border-color: var(--bs-danger);
+  background-color: transparent;
+}
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.bg-danger {
+  background-color: var(--bs-success) !important;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active,
+.btn-success:focus {
+  background-color: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+}
+
+.btn-outline-success,
+.btn-outline-success:hover,
+.btn-outline-success:active,
+.btn-outline-success:focus {
+  color: var(--bs-success);
+  border-color: var(--bs-success);
+  background-color: transparent;
+}
+.text-success {
+  color: var(--success) !important;
+}
+.bg-success {
+  background-color: var(--bs-success) !important;
+}
+
+.btn-info,
+.btn-info:hover,
+.btn-info:active,
+.btn-info:focus {
+  background-color: var(--bs-info) !important;
+  border-color: var(--bs-info) !important;
+}
+
+.btn-outline-info,
+.btn-outline-info:hover,
+.btn-outline-info:active,
+.btn-outline-info:focus {
+  color: var(--bs-info);
+  border-color: var(--bs-info);
+  background-color: transparent;
+}
+.text-info {
+  color: var(--info) !important;
+}
+.bg-info {
+  background-color: var(--bs-info) !important;
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning:focus {
+  background-color: var(--bs-warning) !important;
+  border-color: var(--bs-warning) !important;
+}
+
+.btn-outline-warning,
+.btn-outline-warning:hover,
+.btn-outline-warning:active,
+.btn-outline-warning:focus {
+  color: var(--bs-warning);
+  border-color: var(--bs-warning);
+  background-color: transparent;
+}
+.text-warning {
+  color: var(--warning) !important;
+}
+
+.bg-warning {
+  background-color: var(--bs-warning) !important;
+}
+
+.btn-dark,
+.btn-dark:hover,
+.btn-dark:active,
+.btn-dark:focus {
+  background-color: var(--theta) !important;
+  border-color: var(--theta) !important;
+}
+.btn-outline-dark,
+.btn-outline-dark:hover,
+.btn-outline-dark:active,
+.btn-outline-dark:focus {
+  color: var(--theta);
+  border-color: var(--theta);
+  background-color: transparent;
+}
+.text-dark {
+  color: var(--theta) !important;
+}
+
+.bg-alpha {
+  background-color: var(--alpha) !important;
+}
+.color-alpha {
+  color: var(--alpha) !important;
+}
+
+.bg-beta {
+  background-color: var(--beta) !important;
+}
+.color-beta {
+  color: var(--beta) !important;
+}
+
+.bg-gamma {
+  background-color: var(--gamma) !important;
+}
+.color-gamma {
+  color: var(--gamma) !important;
+}
+
+.bg-delta {
+  background-color: var(--delta) !important;
+}
+
+.bg-epsilon {
+  background-color: var(--epsilon) !important;
+}
+.color-epsilon {
+  color: var(--epsilon) !important;
+}
+
+.bg-zeta {
+  background-color: var(--zeta) !important;
+}
+.color-zeta {
+  color: var(--zeta) !important;
+}
+
+.bg-eta {
+  background-color: var(--eta) !important;
+}
+.color-eta {
+  color: var(--eta) !important;
+}
+
+.bg-theta {
+  background-color: var(--theta) !important;
+}
+.color-theta {
+  color: var(--theta) !important;
+}
+
+/*************👇👇👇👇👇👇👇👇👇***************/
+blockquote {
+  border-left: 4px solid var(--color-accent);
+  padding-left: var(--spacing-md);
+  margin: var(--spacing-lg) 0;
+  font-style: italic;
+  color: var(--color-secondary);
+}
+
+footer {
+  background-color: #f9f9f9;
+  padding: var(--spacing-lg) 0;
+  margin-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.social-links a {
+  margin-left: var(--spacing-md);
+}
+
+/*************👆👆👆👆👆👆***************/
+
+h1 {
+  font-family: "Boldonse", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 5rem;
+}
+
+h2 {
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .author-profile {
+    grid-template-columns: 1fr;
+  }
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+  .related-posts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  .filter-controls {
+    flex-direction: column;
+  }
+  .search-box,
+  .category-filter {
+    width: 100%;
+    margin-bottom: var(--spacing-sm);
+  }
+  .search-box input {
+    width: 100%;
+  }
+}
+
+/*  nav */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 75%;
+  height: 100%;
+  z-index: 1050;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+  background-color: var(--zeta);
+}
+
+.mobile-drawer.show {
+  right: 0;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+}
+
+.overlay.show {
+  display: block;
+}
+
+.navbarNav-bar {
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.navbarNav-bar a {
+  color: var(--theta);
+}
+
+@media (min-width: 768px) {
+  .navbarNav-bar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav-toggle {
+    display: none !important;
+  }
+
+  .mobile-drawer {
+    position: static;
+    width: 100%;
+    height: auto;
+    right: auto;
+    display: block;
+    transition: none;
+  }
+
+  .overlay {
+    display: none !important;
+  }
+}
+
+.site-logo {
+  display: block;
+  width: 60px;
+  height: 60px;
+}
