@@ -35,22 +35,36 @@
         </section>
         <div class="page-container-home-preliminaries flex-shrink-0">
             <aside class="sidebar">
-                <div class="about-widget">
+               <article class="post-card">
                     <h3>About Me</h3>
-                    <img src="/placeholder.svg?height=150&width=150" alt="Author photo" class="author-photo">
-                    <p>I'm a writer, philosopher, and technology enthusiast exploring the intersection of ideas and their impact on society.</p>
-                    <a href="about.html" class="btn">Learn More</a>
-                </div>
+                    <div class="post-meta-container">
+                        <div class="post-thumbnail">
+                            <img src="/assets/images/app/cover_r.jpg" alt="Photo of a man on his studio" />
+                        </div>
+                        <div class="post-info">
+                            <p class="post-text post-text-long" id="text-about-me">
+                                    I was born and raised in Bloomington, Indiana. I felt my call to ministry in 2002. I was a full time evangelist for several years traveling across the country. Before evangelizing, I worked as an intern at Medora Pentecostal Church in Indiana under Pastor Tim Gill, and at Bethlehem Church of the Lord Jesus Christ in Potts Camp, MS under Pastor Jon Vazquez. 
+                                    <br /><br />
+                                    In 2010, I married Ashley McCool. We both felt our call to Knoxville where Ashley had been raised. We are both now serving and working at First Apostolic Church as associate pastor and we both teach at Apostolic Christian School. I teach biblical studies and apologetics each week to middle school and high school students. Along with ministering in Knoxville, I have ministered in Africa, Ireland, Germany and Spain. In 2013 I released my first book The Lost Art of Spiritual Disciplines. I’m currently working on my next book and bible study curriculum for student ministry.
+                                    <br /><br />
+                                    I have a B.S. in Biblical Studies from Indiana Wesleyan University. The focus of my blog will be on biblical studies, theology, apologetics, preaching, ministry and the occasional book review.
+                            </p>
+                             <button class="btn" id="about-me-btn">Read more</button>
+                        </div>
+                    </div>
+                </article>
 
-                <div class="categories-widget">
-                    <h3>Categories</h3>
-                    <ul>
-                        <li><a href="#">Philosophy</a></li>
-                        <li><a href="#">Technology</a></li>
-                        <li><a href="#">Ethics</a></li>
-                        <li><a href="#">Culture</a></li>
-                        <li><a href="#">Book Reviews</a></li>
-                    </ul>
+                <div class="all-posts-widget">
+                    <h3>All Posts ({{len .posts}})</h3>
+                    <input id="search-in-posts" placeholder="Find by title or content" class="w-100 mb-4 px-3 py-2" />
+                    <ul class="all-posts-list">
+                        {{ range $ni, $pi := .posts }}
+                            <li 
+                            data-title="{{ sanitize $pi.Name }}"
+                            data-text="{{ sanitize $pi.Text }}">
+                                <a href="/blog/{{ $pi.ID }}">{{$pi.Name}}</a></li>
+                        {{end}}
+                     </ul>
                 </div>
 
                 <div class="subscribe-widget">

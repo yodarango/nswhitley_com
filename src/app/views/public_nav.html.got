@@ -1,5 +1,5 @@
 <!-- Toggle Button (only visible on mobile) -->
-<button class="btn btn-dark nav-toggle d-md-none" type="button">
+<button class="nav-toggle d-md-none" type="button">
   <i class="fas fa-bars"></i>
 </button>
 

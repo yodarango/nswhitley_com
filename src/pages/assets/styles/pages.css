@@ -82,7 +82,9 @@
 
     .featured-posts {
       width: 70%;
-
+      @media (max-width: 1000px) {
+        width: 60%;
+      }
       @media (max-width: 768px) {
         width: 100%;
       }
@@ -176,6 +178,10 @@
     .page-container-home-preliminaries {
       width: 30%;
 
+      @media (max-width: 1000px) {
+        width: 40%;
+      }
+
       @media (max-width: 768px) {
         width: 100%;
       }
@@ -190,12 +196,50 @@
         border-radius: 50%;
         margin-bottom: var(--spacing-sm);
       }
-      .categories-widget ul {
-        list-style: none;
+      .all-posts-widget {
+        background-color: var(--theta);
+
+        > h3 {
+          color: var(--alpha);
+          margin-bottom: 16px;
+        }
+
+        > input {
+          background-color: var(--epsilon);
+          color: var(--alpha);
+
+          &::placeholder {
+            color: var(--alpha);
+          }
+        }
+
+        .all-posts-list {
+          border-top: 1px solid var(--alpha);
+          list-style: none;
+          padding-left: 8px !important;
+
+          &::-webkit-scrollbar {
+            width: 8px;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: var(--color-accent);
+            border-radius: 4px;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: var(--color-accent-light);
+          }
+          height: 200px;
+          overflow-y: scroll;
+          li {
+            margin-bottom: 12px;
+
+            > a {
+              color: var(--alpha);
+            }
+          }
+        }
       }
-      .categories-widget li {
-        margin-bottom: var(--spacing-xs);
-      }
+
       .btn {
         display: inline-block;
         background-color: var(--color-accent);
@@ -227,95 +271,16 @@
       }
     }
   }
-}
 
-/* *************************** Articles Page ******************** */
-.filter-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-lg);
-}
-.search-box input {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  width: 300px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-.category-filter select {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-}
-.articles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-lg);
-}
-.article-card {
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.article-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-.pagination {
-  margin-top: var(--spacing-lg);
-  text-align: center;
-}
-
-/* *************************** Contact Page ******************** */
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-}
-.contact-methods {
-  margin-top: var(--spacing-lg);
-}
-.contact-method {
-  margin-bottom: var(--spacing-md);
-}
-.social-list {
-  list-style: none;
-}
-.form-group {
-  margin-bottom: var(--spacing-md);
-}
-.form-group label {
-  display: block;
-  margin-bottom: var(--spacing-xs);
-  font-weight: bold;
-}
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: var(--spacing-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius);
-  font-family: var(--font-secondary);
-}
-.form-success {
-  background-color: #e6f7e6;
-  color: #2e7d32;
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius);
-  margin-top: var(--spacing-md);
-}
-.hidden {
-  display: none;
-}
-.faq-section {
-  margin-top: var(--spacing-xl);
-}
-.faq-item {
-  margin-bottom: var(--spacing-md);
-}
-.faq-item h4 {
-  margin-bottom: var(--spacing-xs);
+  .about-me-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+  }
 }
 
 /* *************************** Single Post ******************** */

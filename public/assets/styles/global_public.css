@@ -338,6 +338,11 @@ h2 {
   }
 }
 
+/*  header */
+header {
+  background-color: black;
+}
+
 /*  nav */
 .mobile-drawer {
   position: fixed;
@@ -348,7 +353,8 @@ h2 {
   z-index: 1050;
   transition: right 0.3s ease;
   overflow-y: auto;
-  background-color: var(--zeta);
+  background-color: black;
+  border-left: 1px solid var(--alpha);
 }
 
 .mobile-drawer.show {
@@ -379,7 +385,7 @@ h2 {
 }
 
 .navbarNav-bar a {
-  color: var(--theta);
+  color: var(--alpha);
 }
 
 @media (min-width: 768px) {
@@ -390,6 +396,11 @@ h2 {
 
   .nav-toggle {
     display: none !important;
+    background-color: black;
+
+    i {
+      color: var(--alpha);
+    }
   }
 
   .mobile-drawer {
