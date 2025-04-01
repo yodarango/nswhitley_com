@@ -15,7 +15,7 @@
             <div class="p-4 bg-white">
                 {{ $0 := . }}
                 {{ range $i, $p := .posts }}
-                  {{ if lt $i 4 }}
+                  {{ if lt $i 3 }}
                         <article class="post-card">
                             <h3><a href="/blog/{{ $p.ID }}">{{$p.Name}}</a></h3>
                             <div class="post-meta-container">
@@ -80,12 +80,19 @@
     </div>
 
     <div class="books-section"> 
-        <div class="book-cover">
-            <img src="/assets/images/app/books.webp" alt="covers of books by N. S. Whitley" />
-        </div>
-        <div>
-            <h2>Checkout my books</h2>
-        </div>
+        <h2>Checkout my books</h2>
+        <aside>
+            <div class="book-cover">
+                <img src="/assets/images/app/books.webp" alt="covers of books by N. S. Whitley" />
+            </div>
+            <div>
+                <a href="https://a.co/d/bP3i4TN"><b>The Lost Art of Spiritual Disciplines</b></a>
+                <p class="mb-4">Consecration is proven through private prayer, fasting, and Bible study—disciplines that empower the church spiritually. In this manifesto, N.S. Whitley urges the modern church to rekindle its spiritual strength by earnestly seeking God and His righteousness.</p>
+                <a href="https://a.co/d/8Ka0x3o"><b>The Lost Art of Spiritual Disciplines</b></a>
+                <p>In the Gospel of John, Jesus boldly declares that He is the Great I AM of the Old Testament. In this book we look closely at these seven declarations of Jesus Christ and how they are significant to believers today.</p>
+                
+            </div>
+        </aside>
     </div>
 </div>
 {{define "extra_footer"}}
