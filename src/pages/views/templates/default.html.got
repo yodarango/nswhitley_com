@@ -76,7 +76,16 @@
                     </form>
                 </div>
             </aside>
+        </div>
+    </div>
+
+    <div class="books-section"> 
+        <div class="book-cover">
+            <img src="/assets/images/app/books.webp" alt="covers of books by N. S. Whitley" />
+        </div>
         <div>
+            <h2>Checkout my books</h2>
+        </div>
     </div>
 </div>
 {{define "extra_footer"}}
