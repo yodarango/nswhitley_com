@@ -54,7 +54,7 @@
                     </div>
                 </article>
 
-                <div class="all-posts-widget">
+                <div class="all-posts-widget" id="blog-list">
                     <h3>All Posts ({{len .posts}})</h3>
                     <input id="search-in-posts" placeholder="Find by title or content" class="w-100 mb-4 px-3 py-2" />
                     <ul class="all-posts-list">

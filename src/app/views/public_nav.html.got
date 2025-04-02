@@ -1,19 +1,25 @@
-<!-- Toggle Button (only visible on mobile) -->
-<button class="nav-toggle d-md-none" type="button">
+<!-- Toggle Button (only visible on mobile) Deactivated for now -->
+<!-- <button class="nav-toggle d-md-none" type="button">
   <i class="fas fa-bars"></i>
-</button>
+</button> -->
 
 <!-- Overlay -->
 <div class="overlay"></div>
 
 <!-- Drawer Navigation -->
 <nav id="navbarNav" class="mobile-drawer">
-  <div class="p-3 gap-4 d-flex align-items-center justify-content-between">
-    <img src="/assets/images/app/logo.png" alt="N. S. Whitley logo" class="site-logo"/>
-    <div class="navbarNav-bar">
-      <a class="nav-item nav-link" href="/"><i class="fas fa-home"></i> Home</a>
-      <a class="nav-link" href="/blog"><i class="fas fa-blog"></i> Blog</a>
-      <a class="nav-link" href="/about"><i class="fas fa-info-circle"></i> About</a>
+  <div class="py-3 px-5 gap-4 d-flex align-items-center justify-content-between">
+    <a href="/">
+      <img src="/assets/images/app/logo.png" alt="N. S. Whitley logo" class="site-logo"/>
+    </a>
+    <div class="navbarNav-bar">     
+    <a class="nav-link" href="#blog-list">Blog</a>
+    <a class="nav-item nav-link" href="/login">Login</a>
+
+      <!-- not active now -->
+      <!--
+      <a class="nav-link" href="/about"><i class="fas fa-info-circle"></i> About</a> 
+      -->
     </div>
   </div>
 </nav>

@@ -1,6 +1,18 @@
 <ul class="inline">
-        <li><a href="/about">About Us</a></li>
-        <li><a href="/privacy">Privacy</a></li>
-        <li><a href="https://fragmenta.eu">Fragmenta</a></li>
+        <li>
+                <a href="https://www.facebook.com/nswhitley/">
+                        <i class="fa-brands fa-square-facebook"></i>
+                </a>
+        </li>
+        <li>
+                <a href="/privacy">
+                        <i class="fa-brands fa-instagram"></i>
+                </a>
+        </li>
+        <li>
+                <a href="https://twitter.com/nswhitley">
+                        <i class="fa-brands fa-x-twitter"></i>
+                </a>
+        </li>
 </ul>
 {{ block "extra_footer" . }}{{ end }}

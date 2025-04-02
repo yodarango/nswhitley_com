@@ -1,0 +1,548 @@
+/* variables  */
+:root {
+  --alpha: #fefae0;
+  --beta: #e9e4c4;
+  --gamma: #cb997e;
+  --delta: #ddbea9;
+  --epsilon: #6b705c;
+  --zeta: #a5a58d;
+  --eta: #b7b7a4;
+  --theta: #30312c;
+
+  --success: #6bc881;
+  --warning: #f0bd75;
+  --danger: #f26d5b;
+  --info: #5bc0de;
+
+  /* Bootstraps */
+  --bs-primary: var(--epsilon);
+  --bs-danger: var(--danger);
+  --bs-success: var(--success);
+  --bs-info: var(--info);
+  --bs-warning: var(--warning);
+}
+
+/*  Resets */
+button,
+.btn,
+*,
+input {
+  border-radius: 0px !important;
+}
+
+a,
+a:active,
+a:visited {
+  color: var(--theta);
+}
+
+body {
+  color: var(--theta);
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  color: var(--alpha) !important;
+}
+
+.btn-outline-primary,
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+  color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  background-color: transparent;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
+  background-color: var(--bs-danger) !important;
+  border-color: var(--bs-danger) !important;
+}
+
+.btn-outline-danger,
+.btn-outline-danger:hover,
+.btn-outline-danger:active,
+.btn-outline-danger:focus {
+  color: var(--bs-danger);
+  border-color: var(--bs-danger);
+  background-color: transparent;
+}
+.text-danger {
+  color: var(--danger) !important;
+}
+
+.bg-danger {
+  background-color: var(--bs-success) !important;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active,
+.btn-success:focus {
+  background-color: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+}
+
+.btn-outline-success,
+.btn-outline-success:hover,
+.btn-outline-success:active,
+.btn-outline-success:focus {
+  color: var(--bs-success);
+  border-color: var(--bs-success);
+  background-color: transparent;
+}
+.text-success {
+  color: var(--success) !important;
+}
+.bg-success {
+  background-color: var(--bs-success) !important;
+}
+
+.btn-info,
+.btn-info:hover,
+.btn-info:active,
+.btn-info:focus {
+  background-color: var(--bs-info) !important;
+  border-color: var(--bs-info) !important;
+}
+
+.btn-outline-info,
+.btn-outline-info:hover,
+.btn-outline-info:active,
+.btn-outline-info:focus {
+  color: var(--bs-info);
+  border-color: var(--bs-info);
+  background-color: transparent;
+}
+.text-info {
+  color: var(--info) !important;
+}
+.bg-info {
+  background-color: var(--bs-info) !important;
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning:focus {
+  background-color: var(--bs-warning) !important;
+  border-color: var(--bs-warning) !important;
+}
+
+.btn-outline-warning,
+.btn-outline-warning:hover,
+.btn-outline-warning:active,
+.btn-outline-warning:focus {
+  color: var(--bs-warning);
+  border-color: var(--bs-warning);
+  background-color: transparent;
+}
+.text-warning {
+  color: var(--warning) !important;
+}
+
+.bg-warning {
+  background-color: var(--bs-warning) !important;
+}
+
+.btn-dark,
+.btn-dark:hover,
+.btn-dark:active,
+.btn-dark:focus {
+  background-color: var(--theta) !important;
+  border-color: var(--theta) !important;
+}
+.btn-outline-dark,
+.btn-outline-dark:hover,
+.btn-outline-dark:active,
+.btn-outline-dark:focus {
+  color: var(--theta);
+  border-color: var(--theta);
+  background-color: transparent;
+}
+.text-dark {
+  color: var(--theta) !important;
+}
+
+.bg-alpha {
+  background-color: var(--alpha) !important;
+}
+.color-alpha {
+  color: var(--alpha) !important;
+}
+
+.bg-beta {
+  background-color: var(--beta) !important;
+}
+.color-beta {
+  color: var(--beta) !important;
+}
+
+.bg-gamma {
+  background-color: var(--gamma) !important;
+}
+.color-gamma {
+  color: var(--gamma) !important;
+}
+
+.bg-delta {
+  background-color: var(--delta) !important;
+}
+
+.bg-epsilon {
+  background-color: var(--epsilon) !important;
+}
+.color-epsilon {
+  color: var(--epsilon) !important;
+}
+
+.bg-zeta {
+  background-color: var(--zeta) !important;
+}
+.color-zeta {
+  color: var(--zeta) !important;
+}
+
+.bg-eta {
+  background-color: var(--eta) !important;
+}
+.color-eta {
+  color: var(--eta) !important;
+}
+
+.bg-theta {
+  background-color: var(--theta) !important;
+}
+.color-theta {
+  color: var(--theta) !important;
+}
+
+/*  dialog  */
+.dialog-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stile per il dialogo */
+dialog {
+  border: none;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  height: 90vh;
+  overflow: hidden;
+  text-align: center;
+}
+
+/********************************
+********* Admin Layout **********
+*********************************/
+.main-content-admin {
+  @media (min-width: 800px) {
+    justify-content: start;
+    align-items: center;
+    display: flex;
+    gap: 48px;
+
+    .main-content-container {
+      width: calc(95% - 180px - 48px);
+      max-width: 1200px;
+      margin: 0;
+    }
+  }
+}
+
+/********************************
+*********** Admin Nav ***********
+*********************************/
+.navigation-container {
+  @media (min-width: 800px) {
+    width: 180px;
+  }
+}
+
+.content-area {
+  transition: margin-left 0.3s;
+}
+
+/* Navigazione su desktop (>= 800px) */
+@media (min-width: 800px) {
+  .admin {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: var(--theta);
+    color: var(--alpha);
+    padding: 24px 16px;
+    overflow-y: auto;
+    z-index: 1050;
+    width: inherit;
+  }
+
+  .content-area {
+    margin-left: 250px;
+    padding: 20px;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+}
+
+/* Navigazione su mobile (< 800px) */
+@media (max-width: 799px) {
+  .admin {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: -250px; /* Inizialmente nascosto */
+    background-color: var(--theta);
+    color: var(--alpha);
+    transition: right 0.3s;
+    z-index: 1050;
+    padding: 24px 16px;
+    overflow-y: auto;
+  }
+
+  .admin.show {
+    right: 0; /* Mostra il drawer */
+  }
+
+  .content-area {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .nav-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1060;
+    display: block;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+
+  .overlay.show {
+    display: block;
+  }
+}
+
+.admin .main_list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin .main_list a {
+  cursor: pointer;
+  display: block;
+  color: var(--alpha);
+  text-decoration: none;
+  transition: background-color 0.2s;
+  padding: 8px 16px;
+}
+
+.admin .main_list a:hover {
+  color: var(--beta);
+}
+
+.admin .main_list a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+/********************************
+*********** Table Cont **********
+*********************************/
+.table-container {
+  overflow-y: auto;
+  position: relative;
+}
+
+.tr-head {
+  background-color: var(--beta);
+}
+
+.tr-head th {
+  padding: 12px 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table thead {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+table td {
+  padding: 12px 8px;
+}
+
+.td-odd-row {
+  background-color: var(--alpha);
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table tbody,
+  table tr {
+    display: block;
+    width: 100%;
+  }
+
+  table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .td-odd-row {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-right: 10px;
+  }
+}
+
+/* badges  */
+.badge-status-Published,
+.badge-status-Draft,
+.badge-status-Suspended {
+  background-color: var(--success);
+  border-radius: 0px;
+  padding: 5px 10px;
+  color: white !important;
+}
+
+.badge-status-Draft {
+  background-color: var(--warning);
+}
+
+.badge-status-Suspended {
+  background-color: var(--danger);
+}
+
+/*  form  */
+.form-select-fields {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  div {
+    width: 100%;
+
+    select {
+      border: 1px solid var(--gamma);
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+}
+
+.form-input-fields {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+
+  div {
+    width: 100%;
+
+    input {
+      border: 1px solid var(--gamma);
+      border-radius: 5px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.admin-bar-actions {
+  margin-bottom: 24px;
+  a {
+    background-color: var(--gamma);
+    display: inline-block;
+    text-decoration: none;
+    color: var(--alpha);
+    padding: 8px 16px;
+  }
+}
