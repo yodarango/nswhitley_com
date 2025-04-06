@@ -67,14 +67,12 @@
                      </ul>
                 </div>
 
-                <div class="subscribe-widget">
+                <!-- <div class="subscribe-widget">
                     <h3>Stay Updated</h3>
                     <p>Subscribe to receive new posts directly in your inbox.</p>
-                    <form id="subscribe-form">
-                        <input type="email" placeholder="Your email address" required>
-                        <button type="submit" class="btn">Subscribe</button>
-                    </form>
-                </div>
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn">Subscribe</button>
+                </div> -->
             </aside>
         </div>
     </div>
