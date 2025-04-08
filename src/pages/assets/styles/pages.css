@@ -234,6 +234,7 @@
           border-top: 1px solid var(--alpha);
           list-style: none;
           padding-left: 8px !important;
+          height: 400px;
 
           &::-webkit-scrollbar {
             width: 8px;
@@ -245,7 +246,7 @@
           &::-webkit-scrollbar-track {
             background-color: var(--color-accent-light);
           }
-          height: 200px;
+
           overflow-y: scroll;
           li {
             margin-bottom: 12px;
