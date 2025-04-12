@@ -1,6 +1,7 @@
 package postactions
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/fragmenta/auth/can"
@@ -37,10 +38,12 @@ func HandleShow(w http.ResponseWriter, r *http.Request) error {
 		}
 	}
 
+	fmt.Println(post)
 	// Render the template
 	view := view.NewRenderer(w, r)
 	view.CacheKey(post.CacheKey())
 	view.AddKey("currentUser", user)
+		view.AddKey("isPublic", true)
 	view.AddKey("post", post)
 	view.AddKey("meta_title", post.Name)
 	view.AddKey("meta_keywords", post.Keywords)

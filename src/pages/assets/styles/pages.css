@@ -17,6 +17,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: black;
 
     .home-intro-landing {
       background-image: url("/assets/images/app/cover.webp");
@@ -26,7 +27,10 @@
       background-size: cover;
       height: 100%;
       width: 100%;
+      max-width: 600px;
       position: absolute;
+      margin: auto;
+      right: 0;
       top: 0;
       left: 0;
     }

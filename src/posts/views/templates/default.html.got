@@ -9,4 +9,5 @@
 {{end}}
 
 
-<section class="padded narrow">{{html .post.Text}}</div>
+<section>{{html .post.Text}}</section>
+
