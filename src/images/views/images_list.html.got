@@ -1,12 +1,12 @@
 <div class="text-center mt-3">
-    <button class="d-inline-block color-secondary bg-transparent m-auto border-0" id="loadMoreBtn" onclick="loadMoreImages()"><u>Load more</></button>
+    <button class="d-inline-block color-secondary bg-transparent m-auto border-0" id="loadMoreBtn" onclick="loadMoreImages()"><u>Load more</u></button>
 </div>
 
 <script>
-let allImages = {{ .images }}; 
+let allImages2 = {{ .images }}; 
 let imagesPerPage = 50;
 let currentIndex = 0; 
-let filteredImages = allImages; 
+let filteredImages = allImages2; 
 
 function loadMoreImages(reset = false) {
     let imagesContainer = document.getElementById("imagesContainer");
@@ -47,7 +47,7 @@ function filterImagesPage(e) {
     
     searchQuery = searchQuery.replace(/[-_ ]/g, "");
 
-    filteredImages = allImages.filter(image => {
+    filteredImages = allImages2.filter(image => {
         let normalizedImageName = image.Name.toLowerCase().replace(/[-_ ]/g, ""); 
         return normalizedImageName.includes(searchQuery);
     });
@@ -69,7 +69,7 @@ async function deleteImage(button, imagePath) {
 
         if (result.Success) {
             // Rimuove solo l'immagine eliminata dall'array e aggiorna la vista
-            allImages = allImages.filter(img => img.Path !== imagePath);
+            allImages2 = allImages2.filter(img => img.Path !== imagePath);
             filteredImages = filteredImages.filter(img => img.Path !== imagePath);
             loadMoreImages(true);
         } else {
@@ -110,8 +110,8 @@ document.getElementById("uploadForm").addEventListener("submit", async function 
 
         if (result.Success) {
             let newImage = { Name: result.Name, Path: result.Path };
-            allImages.unshift(newImage);
-            filteredImages = allImages;
+            allImages2.unshift(newImage);
+            filteredImages = allImages2;
             loadMoreImages(true);
             fileInput.value = "";
         } else {

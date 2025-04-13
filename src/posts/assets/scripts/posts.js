@@ -40,7 +40,6 @@ function SearchPost() {
     const searchTerm = searchInput.value.toLowerCase().trim();
 
     // Se non c'è nessun termine di ricerca, mostra solo i primi BATCH_SIZE post
-    console.log(searchTerm);
     if (!searchTerm) {
       rows.forEach((row, index) => {
         if (index < BATCH_SIZE) {
