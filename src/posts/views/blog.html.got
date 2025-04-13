@@ -95,6 +95,8 @@ function setupSearch() {
                    post.summary.toLowerCase().includes(query);
         });
 
+        title.textContent = "Blogs " + filteredPosts.length;
+
         // Clear current posts
         postListContainer.innerHTML = '';
 
