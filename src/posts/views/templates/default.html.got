@@ -4,13 +4,12 @@
     </section>
 {{end}}
 
-<div class="single-post-container">
-<h1 class="post-title">{{.post.Name}}</h1>
 {{if .post.Thumbnail}}
-    <img src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" class="thumbnail" />  
+    <img src="/uploads{{.post.Thumbnail}}" alt="{{.post.Name}}" />  
 {{end}}
 
 
-<section>{{html .post.Text}}</section>
+<section>{{html .post.Text}}</div>
 
-</div>
+<script>
+</script>

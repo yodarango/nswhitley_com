@@ -93,9 +93,3 @@
         </aside>
     </div>
 </div>
-{{define "extra_footer"}}
-    <script>
-        console.log({{.posts}})
-    </script>
-    <script src="script.js"></script>
-{{end}}

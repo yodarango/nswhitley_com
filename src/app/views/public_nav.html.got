@@ -14,7 +14,11 @@
     </a>
     <div class="navbarNav-bar">     
     <a class="nav-link" href="#blog-list">Blog</a>
-    <a class="nav-item nav-link" href="/users/login">Login</a>
+    {{if .currentUser.Admin}}
+      <a class="nav-item nav-link" href="/posts">Admin</a>
+    {{else}}
+      <a class="nav-item nav-link" href="/users/login">Login</a>
+    {{end}}
 
       <!-- not active now -->
       <!--

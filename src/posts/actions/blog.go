@@ -15,7 +15,7 @@ import (
 func HandleShowBlog(w http.ResponseWriter, r *http.Request) error {
 
 	// Build a query for blog posts in chronological order
-	q := posts.Published().Order("created_at desc").Limit(50)
+	q := posts.Published().Order("created_at desc")
 	blogPosts, err := posts.FindAll(q)
 	if err != nil {
 		return server.InternalError(err)
@@ -30,6 +30,7 @@ func HandleShowBlog(w http.ResponseWriter, r *http.Request) error {
 	view.AddKey("meta_title", "Blog - "+config.Get("meta_title"))
 	view.AddKey("meta_desc", config.Get("meta_desc"))
 	view.AddKey("meta_keywords", config.Get("meta_keywords"))
+	view.AddKey("isPublic", true)
 	view.Template("posts/views/blog.html.got")
 	return view.Render()
 }

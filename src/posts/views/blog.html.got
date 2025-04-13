@@ -1,6 +1,197 @@
-<section class="padded narrow">
-<h1>Blog</h1>
-{{ range .posts }}
-       {{ template "posts/views/post.html.got" . }}
-{{ end }}
+<section class="blog-container">
+    <h1 id="blog-title">Blog</h1>
+
+    <!-- Search section -->
+    <div class="blog-search-posts">
+        <input id="search-in-posts" placeholder="Find by title or content" class="w-100 mb-4" />
+    </div>
+
+    <!-- Posts list -->
+    <div id="post-list">
+       <div class="blog-posts-list">
+           <!-- Initial posts rendered server-side for immediate visibility -->
+           {{ range $index, $post := .posts }}
+               {{ if lt $index 15 }}
+                   <div class="blog-post" data-post-name="{{ $post.Name }}" data-post-text="{{ $post.Summary }}">
+                       <div class="d-flex align-items-start justify-content-between gap-4">
+                           <img src="/uploads{{ $post.Thumbnail }}" alt="{{ $post.Name }}" class="blog-thumbnail flex-shrink-0" />
+                           <div class="w-100">
+                               <a href="{{ $post.ShowURL }}">
+                                   <h3>{{ $post.Name }}</h3>
+                               </a>
+                               <div class="text">
+                                   {{ $post.Summary }}
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               {{ end }}
+           {{ end }}
+       </div>
+    </div>
+
+    <!-- Load More button -->
+    <div id="load-more-container" class="mt-4 text-center">
+        <button id="load-more-btn" class="btn btn-primary">Load More</button>
+    </div>
 </section>
+
+<script>
+// Store all posts data from server
+const allPosts = [
+    {{range .posts}}
+    {
+        id: {{.ID}},
+        name: "{{js .Name}}",
+        summary: "{{js .Summary}}",
+        thumbnail: "{{js .Thumbnail}}",
+        showURL: "{{js .ShowURL}}"
+    },
+    {{end}}
+];
+
+// Function to create HTML for a post
+function createPostHTML(post) {
+    return `
+    <div class="blog-post" data-post-name="${post.name}" data-post-text="${post.summary}">
+        <div class="d-flex align-items-start justify-content-between gap-4">
+            <img src="/uploads${post.thumbnail}" alt="${post.name}" class="blog-thumbnail flex-shrink-0" />
+            <div class="w-100">
+                <a href="${post.showURL}">
+                    <h3>${post.name}</h3>
+                </a>
+                <div class="text">
+                    ${post.summary}
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+// Search functionality
+function setupSearch() {
+    const input = document.getElementById("search-in-posts");
+    const title = document.querySelector("#blog-title");
+    const postListContainer = document.querySelector(".blog-posts-list");
+
+    // Function to get the current load more button (might be replaced during execution)
+    function getLoadMoreBtn() {
+        return document.getElementById("load-more-btn");
+    }
+
+    title.textContent = `Blog (${allPosts.length})`;
+
+    input.addEventListener("input", function() {
+        const query = this.value.toLowerCase();
+        const loadMoreBtn = getLoadMoreBtn();
+
+        // Reset pagination when searching
+        currentPage = 0;
+
+        // Filter posts based on search query
+        filteredPosts = allPosts.filter(post => {
+            return post.name.toLowerCase().includes(query) ||
+                   post.summary.toLowerCase().includes(query);
+        });
+
+        // Clear current posts
+        postListContainer.innerHTML = '';
+
+        // Show or hide load more button based on search state
+        if (query === '') {
+            // If search is empty, show first page and maybe the load more button
+            loadMorePosts();
+            loadMoreBtn.style.display = filteredPosts.length > postsPerPage ? 'block' : 'none';
+
+            // Reset to the original click handler for normal browsing
+            loadMoreBtn.onclick = null; // Remove inline handler
+            // Remove all click event listeners and add back the original one
+            const newBtn = loadMoreBtn.cloneNode(true);
+            loadMoreBtn.parentNode.replaceChild(newBtn, loadMoreBtn);
+            newBtn.addEventListener('click', handleNormalLoadMore);
+        } else {
+            // If searching, show max 20 results and show load more button if there are more
+            const searchResultsPerPage = 20; // Show maximum 20 results for search
+            const searchResults = filteredPosts.slice(0, searchResultsPerPage);
+
+            // Add the first 20 search results
+            searchResults.forEach(post => {
+                postListContainer.innerHTML += createPostHTML(post);
+            });
+
+            // Show load more button only if there are more than 20 search results
+            loadMoreBtn.style.display = filteredPosts.length > searchResultsPerPage ? 'block' : 'none';
+
+            // Update the loadMoreBtn click handler for search results
+            loadMoreBtn.onclick = function() {
+                // Get the next batch of search results
+                const nextResults = filteredPosts.slice(searchResultsPerPage);
+
+                // Add them to the container
+                nextResults.forEach(post => {
+                    postListContainer.innerHTML += createPostHTML(post);
+                });
+
+                // Hide the button after showing all results
+                loadMoreBtn.style.display = 'none';
+            };
+        }
+    });
+}
+
+// Pagination variables
+let currentPage = 0;
+const postsPerPage = 15;
+let filteredPosts = [...allPosts]; // Start with all posts
+
+// Function to load more posts
+function loadMorePosts() {
+    const start = currentPage * postsPerPage;
+    const end = start + postsPerPage;
+    const paginatedPosts = filteredPosts.slice(start, end);
+    const postListContainer = document.querySelector(".blog-posts-list");
+    const loadMoreBtn = getLoadMoreBtn();
+
+    // Add posts to the container
+    paginatedPosts.forEach(post => {
+        postListContainer.innerHTML += createPostHTML(post);
+    });
+
+    // Hide load more button if no more posts
+    if (end >= filteredPosts.length) {
+        loadMoreBtn.style.display = "none";
+    } else {
+        loadMoreBtn.style.display = "block";
+    }
+
+    // Update current page
+    currentPage++;
+}
+
+// Original load more function for normal browsing
+function handleNormalLoadMore() {
+    loadMorePosts();
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener("DOMContentLoaded", function() {
+    // Get the load more button
+    const loadMoreBtn = document.getElementById("load-more-btn");
+
+    // Set the default click handler
+    loadMoreBtn.addEventListener("click", handleNormalLoadMore);
+
+    // Setup search functionality
+    setupSearch();
+
+    // Hide load more button if there are 15 or fewer posts
+    if (allPosts.length <= postsPerPage) {
+        loadMoreBtn.style.display = "none";
+    }
+});
+
+// Since the first 15 posts are already rendered server-side,
+// we just need to set the current page to 1
+currentPage = 1;
+</script>

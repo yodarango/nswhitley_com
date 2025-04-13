@@ -43,7 +43,6 @@ func HandleShow(w http.ResponseWriter, r *http.Request) error {
 	view := view.NewRenderer(w, r)
 	view.CacheKey(post.CacheKey())
 	view.AddKey("currentUser", user)
-		view.AddKey("isPublic", true)
 	view.AddKey("post", post)
 	view.AddKey("meta_title", post.Name)
 	view.AddKey("meta_keywords", post.Keywords)
