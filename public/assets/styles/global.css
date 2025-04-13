@@ -1,3 +1,7 @@
+main {
+  min-height: 100vh;
+}
+
 footer {
   background-color: var(--theta) !important;
   padding: 16px;

@@ -1,1 +1,44 @@
 /* CSS Styles for users */
+
+.login-page-container {
+  margin: 100px auto;
+  height: 80vh;
+  width: 100%;
+
+  > div {
+    max-width: 600px;
+    .field {
+      label {
+        display: block;
+        width: 100%;
+        font-size: 20px;
+      }
+      input {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background-color: var(--epsilon);
+        color: var(--alpha);
+        margin-bottom: 16px;
+        border: none;
+        outline: none;
+
+        &::placeholder {
+          color: var(--alpha);
+        }
+      }
+    }
+
+    .actions {
+      input {
+        background-color: var(--gamma);
+        color: var(--alpha);
+        padding: 12px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+      }
+    }
+  }
+}

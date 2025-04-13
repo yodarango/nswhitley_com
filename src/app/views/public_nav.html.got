@@ -14,7 +14,7 @@
     </a>
     <div class="navbarNav-bar">     
     <a class="nav-link" href="#blog-list">Blog</a>
-    <a class="nav-item nav-link" href="/login">Login</a>
+    <a class="nav-item nav-link" href="/users/login">Login</a>
 
       <!-- not active now -->
       <!--

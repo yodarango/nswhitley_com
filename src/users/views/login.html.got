@@ -1,13 +1,20 @@
-<section class="narrow">
-<h1>Login</h1>
-<form action="/users/login" method="post" class="user-login-form">
- 
+<section class="login-page-container d-flex align-items-center justify-content-center">
 
-    {{ field "Email" "email" "" "text" }}
-    {{ field "Password" "password" "" "password" "type=password" }}
+<div class="w-100">
+    <h1>Login</h1>
+    <form action="/users/login" method="post" class="user-login-form">
+        {{ field "Email" "email" "" "text" }}
+        {{ field "Password" "password" "" "password" "type=password" }}
 
-    <div class="actions">
-        <input type="submit" class="button" value="Login">
-    </div>
-</form>
+        <div class="actions">
+            <input type="submit" class="button" value="Login">
+        </div>
+        {{ if .warning }}   
+            <div class="alert alert-danger mt-4" id="auth-error">
+                {{ .warning }}
+            </div>
+        {{end}}
+    </form>
+</div>
 </section>
+

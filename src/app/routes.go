@@ -38,8 +38,6 @@ func SetupRoutes() *mux.Mux {
 	router.Add("/assets/{path:.*}", fileHandler)
 	router.Add("/uploads/{path:.*}", fileHandler)
 
-	// Resource Routes
-
 	router.Get("/redirects", redirectactions.HandleIndex)
 	router.Get("/redirects/create", redirectactions.HandleCreateShow)
 	router.Post("/redirects/create", redirectactions.HandleCreate)

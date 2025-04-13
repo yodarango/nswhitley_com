@@ -36,6 +36,8 @@ func HandleLoginShow(w http.ResponseWriter, r *http.Request) error {
 	case "failed_password":
 		view.AddKey("warning", "Sorry, the password was incorrect, please try again.")
 	}
+
+	view.AddKey("isPublic", true)
 	return view.Render()
 }
 
@@ -52,7 +54,7 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) error {
 	// Check they're not logged in already if so redirect.
 	currentUser := session.CurrentUser(w, r)
 	if !currentUser.Anon() {
-		return server.Redirect(w, r, "/?warn=already_logged_in")
+		return server.Redirect(w, r, "/posts?warn=already_logged_in")
 	}
 
 	// Get the user details from the database
@@ -92,5 +94,5 @@ func HandleLogin(w http.ResponseWriter, r *http.Request) error {
 	log.Info(log.V{"msg": "login", "user_email": user.Email, "user_id": user.ID})
 
 	// Redirect - ideally here we'd redirect to their original request path
-	return server.Redirect(w, r, "/")
+	return server.Redirect(w, r, "/posts")
 }
