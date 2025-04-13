@@ -12,7 +12,7 @@
     <div class="below-landing">
         <section class="featured-posts flex-shrink-0">
             <h2>Recent Posts</h2>
-            <div class="p-4 bg-white">
+            <div class="p-4 bg-white recent-posts-card">
                 {{ $0 := . }}
                 {{ range $i, $p := .posts }}
                   {{ if lt $i 3 }}

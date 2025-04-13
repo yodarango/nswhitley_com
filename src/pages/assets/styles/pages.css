@@ -87,6 +87,10 @@
 
     .featured-posts {
       width: 70%;
+
+      .recent-posts-card {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
       @media (max-width: 1000px) {
         width: 60%;
       }
@@ -118,7 +122,6 @@
         width: 200px;
         flex-shrink: 0;
         height: 200px;
-        border-radius: 10px;
         overflow: hidden;
         position: relative;
         margin-bottom: var(--spacing-sm);
@@ -132,7 +135,6 @@
           height: 100%;
           object-fit: cover;
           object-position: center;
-          border-radius: 10px;
         }
       }
 
