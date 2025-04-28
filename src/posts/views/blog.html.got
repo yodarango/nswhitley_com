@@ -12,16 +12,18 @@
            <!-- Initial posts rendered server-side for immediate visibility -->
            {{ range $index, $post := .posts }}
                {{ if lt $index 15 }}
-                   <div class="blog-post" data-post-name="{{ $post.Name }}" data-post-text="{{ $post.Summary }}">
+                   <div class="blog-post" data-post-name="{{ $post.Name }}" data-post-text="{{ $post.Summary }}" data-post-id="{{ $post.ID }}">
                        <div class="d-flex align-items-start justify-content-between gap-4">
                            <img src="/uploads{{ $post.Thumbnail }}" alt="{{ $post.Name }}" class="blog-thumbnail flex-shrink-0" />
                            <div class="w-100">
                                <a href="{{ $post.ShowURL }}">
                                    <h3>{{ $post.Name }}</h3>
                                </a>
-                               <div class="text">
-                                   {{ $post.Summary }}
-                               </div>
+                                <div class="post-info">
+                                    <div class="post-meta">{{time $post.UpdatedAt}}</div>
+                                    <div class="post-text">{{html $post.Text}}</div>
+                                    <a href="/blog/{{ $post.ID }}" class="read-more">Read More</a>
+                                </div>
                            </div>
                        </div>
                    </div>
@@ -53,7 +55,7 @@ const allPosts = [
 // Function to create HTML for a post
 function createPostHTML(post) {
     return `
-    <div class="blog-post" data-post-name="${post.name}" data-post-text="${post.summary}">
+    <div class="blog-post" data-post-name="${post.name}" data-post-text="${post.summary}" data-post-id="${post.id}">
         <div class="d-flex align-items-start justify-content-between gap-4">
             <img src="/uploads${post.thumbnail}" alt="${post.name}" class="blog-thumbnail flex-shrink-0" />
             <div class="w-100">

@@ -254,6 +254,29 @@
     padding: 12px 24px;
     background-color: white;
 
+    .post-info {
+      width: 100%;
+      .post-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        max-height: 4.5em;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        img,
+        ul {
+          display: none;
+        }
+      }
+    }
+
     .blog-post {
       background-color: white;
       padding: 16px;

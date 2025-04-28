@@ -13,7 +13,7 @@
       <img src="/assets/images/app/logo.png" alt="N. S. Whitley logo" class="site-logo"/>
     </a>
     <div class="navbarNav-bar">     
-    <a class="nav-link" href="#blog-list">Blog</a>
+    <a class="nav-link" href="/blog">Blog</a>
     {{if .currentUser.Admin}}
       <a class="nav-item nav-link" href="/posts">Admin</a>
     {{else}}
