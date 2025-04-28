@@ -32,32 +32,24 @@ function RemoveWordPressImages() {
 // search post functionality
 function SearchPost() {
   const searchInput = document.querySelector('input[name="filter"]');
-  const rows = document.querySelectorAll(".row-post-name");
 
   if (!searchInput) return;
 
   searchInput.addEventListener("input", function () {
     const searchTerm = searchInput.value.toLowerCase().trim();
+    const rows = document.querySelectorAll("tr:not(.tr-head)");
 
-    // Se non c'è nessun termine di ricerca, mostra solo i primi BATCH_SIZE post
-    if (!searchTerm) {
-      rows.forEach((row, index) => {
-        if (index < BATCH_SIZE) {
-          row.parentElement.style.display = "";
-        } else {
-          row.parentElement.style.display = "none";
-        }
-      });
-      return;
-    }
-
+    // Skip the header row
     rows.forEach((row) => {
-      const postName = row.dataset.postName.toLowerCase().trim();
+      if (row.querySelector('td[data-label="Name"]')) {
+        const nameCell = row.querySelector('td[data-label="Name"]');
+        const postName = nameCell.textContent.toLowerCase().trim();
 
-      if (postName.includes(searchTerm)) {
-        row.parentElement.style.display = "";
-      } else {
-        row.parentElement.style.display = "none";
+        if (postName.includes(searchTerm) || searchTerm === "") {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
       }
     });
   });
