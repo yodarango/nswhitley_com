@@ -17,9 +17,9 @@
     </section>
 
     <section class="form-select-fields mb-2">
-        {{ select "Status" "status" .post.Status .post.StatusOptions }}  
-        {{ selectarray "Author" "author_id" .post.AuthorID .authors }}  
-        {{ selectarray "Template" "template" .post.Template .post.TemplateOptions }} 
+        {{ select "Status" "status" .post.Status .post.StatusOptions }}
+        {{ selectarray "Author" "author_id" .post.AuthorID .authors }}
+        {{ selectarray "Template" "template" .post.Template .post.TemplateOptions }}
     </section>
 
     <section>
@@ -58,10 +58,18 @@
                 </button>
             {{end}}
         </div>
-         
-         <div style="background: white;">
-            <div id="editor">{{html .post.Text}}</div>
 
+         <div style="background: white;" class="editor-container">
+            <div class="editor-controls">
+                <button type="button" id="immersiveViewBtn" class="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2">
+                    <i class="fa fa-expand"></i>
+                    <span>Try the immersive view</span>
+                </button>
+            </div>
+            <div id="editor">{{html .post.Text}}</div>
+            <button type="button" id="closeImmersiveBtn" class="d-none btn btn-light rounded-circle shadow">
+                <i class="fa fa-times"></i>
+            </button>
             <input type="hidden" name="text" id="quillContent">
         </div>
     </section>
@@ -85,15 +93,15 @@
     Quill.register(Color, true);
 
         const toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],      
-        ['link', 'image', 'video'],         
+        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+        ['link', 'image', 'video'],
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],     
-        [{ 'indent': '-1'}, { 'indent': '+1' }],                                 
-        [{ 'size': ['small', false, 'large', 'huge'] }],  
+        [{ 'script': 'sub'}, { 'script': 'super' }],
+        [{ 'indent': '-1'}, { 'indent': '+1' }],
+        [{ 'size': ['small', false, 'large', 'huge'] }],
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': Color.color }, { 'background': Color.background}],         
-        [{ 'align': [] }],                                  
+        [{ 'color': Color.color }, { 'background': Color.background}],
+        [{ 'align': [] }],
         ];
 
         const quill = new Quill('#editor', {
@@ -103,11 +111,37 @@
         theme: 'snow'
         });
 
-        document.querySelector('.posts-form').addEventListener('submit', function(e) {
+        // Toggle immersive view functionality
+        const immersiveViewBtn = document.getElementById('immersiveViewBtn');
+        const closeImmersiveBtn = document.getElementById('closeImmersiveBtn');
+        const editorContainer = document.querySelector('.editor-container');
 
+        function enterImmersiveMode() {
+            editorContainer.classList.add('immersive-mode');
+            closeImmersiveBtn.classList.remove('d-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function exitImmersiveMode() {
+            editorContainer.classList.remove('immersive-mode');
+            closeImmersiveBtn.classList.add('d-none');
+            document.body.style.overflow = '';
+        }
+
+        immersiveViewBtn.addEventListener('click', enterImmersiveMode);
+        closeImmersiveBtn.addEventListener('click', exitImmersiveMode);
+
+        // Handle ESC key to exit immersive mode
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && editorContainer.classList.contains('immersive-mode')) {
+                exitImmersiveMode();
+            }
+        });
+
+        document.querySelector('.posts-form').addEventListener('submit', function(e) {
             const editorContent = document.querySelector("#editor .ql-editor");
 
-            if (!editor) return 
+            if (!editorContent) return;
 
             const editorContentText = `${editorContent.innerHTML}`
 
