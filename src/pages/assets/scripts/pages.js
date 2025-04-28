@@ -34,7 +34,9 @@ function SearchPostFunctionality() {
 // on load add function to button
 document.addEventListener("DOMContentLoaded", function () {
   const aboutMeButton = document.querySelector("#about-me-btn");
-  aboutMeButton.addEventListener("click", toggleAboutMeText);
+  if (aboutMeButton) {
+    aboutMeButton.addEventListener("click", toggleAboutMeText);
+  }
 
   const searchInput = document.querySelector("#search-in-posts");
   if (searchInput) {

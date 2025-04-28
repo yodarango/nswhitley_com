@@ -1,5 +1,5 @@
 /* JS for posts */
-let imagesLoaded = false;
+let postsImagesLoaded = false;
 let allImages = [];
 let imagesRendered = 0;
 const BATCH_SIZE = 25;
@@ -79,7 +79,7 @@ function closeImagePicker() {
 }
 
 async function loadImages() {
-  if (imagesLoaded) return;
+  if (postsImagesLoaded) return;
 
   try {
     const response = await fetch("/api/images");
@@ -104,7 +104,7 @@ async function loadImages() {
       }
     };
 
-    imagesLoaded = true;
+    postsImagesLoaded = true;
   } catch (error) {
     console.error("Errore nel caricamento delle immagini:", error);
   }
