@@ -80,73 +80,83 @@
     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
     <script>
-    const Color = Quill.import('attributors/style/color');
-    Color.background = [
-        "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#E6CCFF", "#FFCCE5",
-    ];
+    // Check if Quill is available and if the editor element exists
+    if (typeof Quill !== 'undefined' && document.querySelector('#editor')) {
+        const Color = Quill.import('attributors/style/color');
+        Color.background = [
+            "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFC9", "#BAE1FF", "#E6CCFF", "#FFCCE5",
+        ];
 
-    Color.color = [
-        "#FF4C5B", "#FF9C4C", "#FFF44C", "#4CFF9C", "#4CB8FF", "#B84CFF", "#FF4CB0",
-        "#000000", "#F2F2F2", "#D2D2D2", "#B2B2B2", "#525252"
-    ]
+        Color.color = [
+            "#FF4C5B", "#FF9C4C", "#FFF44C", "#4CFF9C", "#4CB8FF", "#B84CFF", "#FF4CB0",
+            "#000000", "#F2F2F2", "#D2D2D2", "#B2B2B2", "#525252"
+        ]
 
-    Quill.register(Color, true);
+        Quill.register(Color, true);
 
         const toolbarOptions = [
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        ['link', 'image', 'video'],
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],
-        [{ 'indent': '-1'}, { 'indent': '+1' }],
-        [{ 'size': ['small', false, 'large', 'huge'] }],
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': Color.color }, { 'background': Color.background}],
-        [{ 'align': [] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            ['link', 'image', 'video'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'color': Color.color }, { 'background': Color.background}],
+            [{ 'align': [] }],
         ];
 
         const quill = new Quill('#editor', {
-        modules: {
-            toolbar: toolbarOptions
-        },
-        theme: 'snow'
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
         });
+    }
 
         // Toggle immersive view functionality
         const immersiveViewBtn = document.getElementById('immersiveViewBtn');
         const closeImmersiveBtn = document.getElementById('closeImmersiveBtn');
         const editorContainer = document.querySelector('.editor-container');
 
-        function enterImmersiveMode() {
-            editorContainer.classList.add('immersive-mode');
-            closeImmersiveBtn.classList.remove('d-none');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function exitImmersiveMode() {
-            editorContainer.classList.remove('immersive-mode');
-            closeImmersiveBtn.classList.add('d-none');
-            document.body.style.overflow = '';
-        }
-
-        immersiveViewBtn.addEventListener('click', enterImmersiveMode);
-        closeImmersiveBtn.addEventListener('click', exitImmersiveMode);
-
-        // Handle ESC key to exit immersive mode
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && editorContainer.classList.contains('immersive-mode')) {
-                exitImmersiveMode();
+        // Only set up immersive view if all elements exist
+        if (immersiveViewBtn && closeImmersiveBtn && editorContainer) {
+            function enterImmersiveMode() {
+                editorContainer.classList.add('immersive-mode');
+                closeImmersiveBtn.classList.remove('d-none');
+                document.body.style.overflow = 'hidden';
             }
-        });
 
-        document.querySelector('.posts-form').addEventListener('submit', function(e) {
-            const editorContent = document.querySelector("#editor .ql-editor");
+            function exitImmersiveMode() {
+                editorContainer.classList.remove('immersive-mode');
+                closeImmersiveBtn.classList.add('d-none');
+                document.body.style.overflow = '';
+            }
 
-            if (!editorContent) return;
+            immersiveViewBtn.addEventListener('click', enterImmersiveMode);
+            closeImmersiveBtn.addEventListener('click', exitImmersiveMode);
 
-            const editorContentText = `${editorContent.innerHTML}`
+            // Handle ESC key to exit immersive mode
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && editorContainer.classList.contains('immersive-mode')) {
+                    exitImmersiveMode();
+                }
+            });
+        }
 
-            document.getElementById('quillContent').value = editorContentText;
-        });
+        // Handle form submission for Quill editor
+        const postsForm = document.querySelector('.posts-form');
+        if (postsForm) {
+            postsForm.addEventListener('submit', function(e) {
+                const editorContent = document.querySelector("#editor .ql-editor");
+                const quillContent = document.getElementById('quillContent');
+
+                if (!editorContent || !quillContent) return;
+
+                const editorContentText = `${editorContent.innerHTML}`;
+                quillContent.value = editorContentText;
+            });
+        }
     </script>
 
 {{end}}

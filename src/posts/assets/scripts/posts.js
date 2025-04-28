@@ -1,8 +1,11 @@
 /* JS for posts */
-let postsImagesLoaded = false;
-let allImages = [];
-let imagesRendered = 0;
-const BATCH_SIZE = 25;
+// Check if variables are already defined to prevent duplicate declaration errors
+if (typeof window.postsImagesLoaded === "undefined") {
+  window.postsImagesLoaded = false;
+  window.allImages = [];
+  window.imagesRendered = 0;
+  window.BATCH_SIZE = 25;
+}
 
 // disable all old wordpress images in content
 function RemoveWordPressImages() {
@@ -58,45 +61,60 @@ function SearchPost() {
 // Apri modale
 function openImagePicker() {
   const dialog = document.getElementById("imageDialog");
+  if (!dialog) return;
+
   dialog.showModal();
-  document.getElementById("delete-confirm-dialog-overlay").style.display =
-    "flex";
+
+  const overlay = document.getElementById("delete-confirm-dialog-overlay");
+  if (overlay) {
+    overlay.style.display = "flex";
+  }
+
   dialog.scrollTop = 0;
 }
 
 function closeImagePicker() {
-  document.getElementById("imageDialog").close();
-  document.getElementById("delete-confirm-dialog-overlay").style.display =
-    "none";
+  const dialog = document.getElementById("imageDialog");
+  if (dialog) {
+    dialog.close();
+  }
+
+  const overlay = document.getElementById("delete-confirm-dialog-overlay");
+  if (overlay) {
+    overlay.style.display = "none";
+  }
 }
 
 async function loadImages() {
-  if (postsImagesLoaded) return;
+  if (window.postsImagesLoaded) return;
 
   try {
     const response = await fetch("/api/images");
-    allImages = await response.json();
+    window.allImages = await response.json();
 
     const galleryDiv = document.querySelector(".gallery");
+    if (!galleryDiv) return;
+
     const loadMoreBtn = document.getElementById("loadMoreImagesBtn");
+    if (!loadMoreBtn) return;
 
     galleryDiv.innerHTML = "";
-    imagesRendered = 0;
+    window.imagesRendered = 0;
 
     renderNextBatch();
 
-    if (imagesRendered < allImages.length) {
+    if (window.imagesRendered < window.allImages.length) {
       loadMoreBtn.style.display = "block";
     }
 
     loadMoreBtn.onclick = () => {
       renderNextBatch();
-      if (imagesRendered >= allImages.length) {
+      if (window.imagesRendered >= window.allImages.length) {
         loadMoreBtn.style.display = "none";
       }
     };
 
-    postsImagesLoaded = true;
+    window.postsImagesLoaded = true;
   } catch (error) {
     console.error("Errore nel caricamento delle immagini:", error);
   }
@@ -105,7 +123,12 @@ async function loadImages() {
 // Renderizza un blocco da 25 immagini
 function renderNextBatch() {
   const galleryDiv = document.querySelector(".gallery");
-  const batch = allImages.slice(imagesRendered, imagesRendered + BATCH_SIZE);
+  if (!galleryDiv || !window.allImages) return;
+
+  const batch = window.allImages.slice(
+    window.imagesRendered,
+    window.imagesRendered + window.BATCH_SIZE
+  );
 
   batch.forEach((image) => {
     const imgElement = document.createElement("img");
@@ -130,27 +153,38 @@ function renderNextBatch() {
         imageThumbPlaceholder.classList.remove("d-block");
       }
 
-      document.getElementById("thumbnailInput").value = "/" + image.Path;
+      const thumbnailInput = document.getElementById("thumbnailInput");
+      if (thumbnailInput) {
+        thumbnailInput.value = "/" + image.Path;
+      }
+
       closeImagePicker();
     });
 
     galleryDiv.appendChild(imgElement);
   });
 
-  imagesRendered += batch.length;
+  window.imagesRendered += batch.length;
 }
 
 // Filtra tutte le immagini corrispondenti alla ricerca
 function filterImagesModal(e) {
+  if (!e || !e.value) return;
+
   const searchTerm = e.value.replace(/[-_ ]/g, "").toLowerCase();
   const galleryDiv = document.querySelector(".gallery");
+  if (!galleryDiv) return;
+
   const loadMoreBtn = document.getElementById("loadMoreImagesBtn");
+  if (!loadMoreBtn) return;
 
   galleryDiv.innerHTML = "";
 
   let filteredCount = 0;
 
-  allImages.forEach((image) => {
+  if (!window.allImages || !Array.isArray(window.allImages)) return;
+
+  window.allImages.forEach((image) => {
     const postName = image.Name.toLowerCase().replace(/[-_ ]/g, "");
 
     if (postName.includes(searchTerm)) {
@@ -176,7 +210,11 @@ function filterImagesModal(e) {
           imageThumbPlaceholder.classList.remove("d-block");
         }
 
-        document.getElementById("thumbnailInput").value = "/" + image.Path;
+        const thumbnailInput = document.getElementById("thumbnailInput");
+        if (thumbnailInput) {
+          thumbnailInput.value = "/" + image.Path;
+        }
+
         closeImagePicker();
       });
 
@@ -186,10 +224,16 @@ function filterImagesModal(e) {
   });
 
   loadMoreBtn.style.display =
-    filteredCount === allImages.length ? "block" : "none";
+    filteredCount === window.allImages.length ? "block" : "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Only run RemoveWordPressImages if #editor exists
+  if (document.querySelector("#editor")) {
+    RemoveWordPressImages();
+  }
+
+  // Only set up image picker if the elements exist
   const closeButtons = document.querySelectorAll(
     '[data-modal-btn="close-image-picker"]'
   );
@@ -197,20 +241,26 @@ document.addEventListener("DOMContentLoaded", () => {
     '[data-modal-btn="open-image-picker"]'
   );
 
-  closeButtons.forEach((button) =>
-    button.addEventListener("click", closeImagePicker)
-  );
+  if (closeButtons.length > 0) {
+    closeButtons.forEach((button) =>
+      button.addEventListener("click", closeImagePicker)
+    );
+  }
 
-  openButtons.forEach((button) =>
-    button.addEventListener("click", () => {
-      openImagePicker();
-      loadImages(); // Carica solo al primo click
-    })
-  );
+  if (openButtons.length > 0) {
+    openButtons.forEach((button) =>
+      button.addEventListener("click", () => {
+        openImagePicker();
+        loadImages(); // Carica solo al primo click
+      })
+    );
 
-  RemoveWordPressImages();
+    // Only load images if we have image picker buttons
+    loadImages();
+  }
 
-  loadImages();
-
-  SearchPost();
+  // Only run search if we have a search input
+  if (document.querySelector('input[name="filter"]')) {
+    SearchPost();
+  }
 });
